@@ -34,7 +34,7 @@
 
     <!-- 配置切面 -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ysdrzp.service.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ysdrzp.oa.service.*.*(..))" />
     </aop:config>
 
 </beans>

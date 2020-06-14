@@ -7,7 +7,10 @@
 	        http://www.springframework.org/schema/context
 	        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+    <!-- 开启注解扫描 -->
+    <context:annotation-config/>
+
     <!-- 扫描包加载Service实现类 -->
-    <context:component-scan base-package="com.ysdrzp.service.impl"/>
+    <context:component-scan base-package="com.ysdrzp.oa.service.impl"/>
 
 </beans>

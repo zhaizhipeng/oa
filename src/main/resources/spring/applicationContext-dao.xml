@@ -27,14 +27,14 @@
         <property name="dataSource" ref="dataSource"></property>
         <property name="mapperLocations">
             <array>
-                <value>classpath:com/ysdrzp/mapper/*.xml</value>
+                <value>classpath:com.ysdrzp.oa.mapper/*.xml</value>
             </array>
         </property>
     </bean>
 
     <!-- 配置扫描包，加载mapper代理对象 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ysdrzp.mapper"></property>
+        <property name="basePackage" value="com.ysdrzp.oa.dao"></property>
     </bean>
 
 </beans>

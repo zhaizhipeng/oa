@@ -15,6 +15,15 @@ public class YSDRZPResult {
      */
     private String data;
 
+    public YSDRZPResult(boolean result, String data){
+        this.result = result;
+        this.data = data;
+    }
+
+    public static YSDRZPResult success = new YSDRZPResult(true, "成功");
+
+    public static YSDRZPResult fail = new YSDRZPResult(false, "失败");
+
     public boolean isResult() {
         return result;
     }

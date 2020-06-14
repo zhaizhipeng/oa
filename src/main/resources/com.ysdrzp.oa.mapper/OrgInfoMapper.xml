@@ -133,4 +133,11 @@
       update_user_name = #{updateUserName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="getList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_info
+  </select>
+
 </mapper>

@@ -2,7 +2,9 @@ package com.ysdrzp.oa.service;
 
 import com.github.pagehelper.PageInfo;
 import com.ysdrzp.oa.common.Page;
+import com.ysdrzp.oa.common.ResultUtil;
 import com.ysdrzp.oa.entity.OrgInfo;
+import com.ysdrzp.oa.vo.OrgSearchVo;
 
 public interface IOrgInfoService extends IBaseService<OrgInfo>{
 
@@ -11,7 +13,7 @@ public interface IOrgInfoService extends IBaseService<OrgInfo>{
      * @param page
      * @return
      */
-    PageInfo<OrgInfo> getList(Page page);
+    ResultUtil getList(Integer page, Integer limit, OrgSearchVo orgSearchVo);
 
     /**
      * 根据机构名称查询机构信息

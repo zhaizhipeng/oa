@@ -134,10 +134,15 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="getList" resultMap="BaseResultMap">
+  <select id="getList" parameterType="com.ysdrzp.oa.vo.OrgSearchVo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from org_info
+    <where>
+      <if test="orgName != null and orgName != ''">
+        and org_name = #{orgName}
+      </if>
+    </where>
   </select>
 
 </mapper>

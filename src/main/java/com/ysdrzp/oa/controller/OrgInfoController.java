@@ -1,16 +1,15 @@
 package com.ysdrzp.oa.controller;
 
-import com.github.pagehelper.PageInfo;
-import com.ysdrzp.oa.common.Page;
+import com.ysdrzp.oa.common.ResultUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.entity.OrgInfo;
 import com.ysdrzp.oa.service.IOrgInfoService;
+import com.ysdrzp.oa.vo.OrgSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("orgInfo")
@@ -22,21 +21,17 @@ public class OrgInfoController {
     /**
      * 获取机构列表
      * @param page
-     * @param model
+     * @param limit
      * @return
      */
-    @PostMapping("/list")
-    public String list(Page page, Model model){
+    @RequestMapping("/list")
+    @ResponseBody
+    public ResultUtil list(Integer page,Integer limit, OrgSearchVo orgSearchVo){
 
-        PageInfo<OrgInfo> pageInfo = orgInfoService.getList(page);
-        model.addAttribute("pageInfo", pageInfo);
-        return "org/org_list";
+        ResultUtil resultUtil = orgInfoService.getList(page, limit, orgSearchVo);
+        return resultUtil;
     }
 
-    @GetMapping("/addOrg")
-    public String addOrg(){
-        return "org/addOrg";
-    }
 
     /**
      * 新增机构
@@ -52,11 +47,6 @@ public class OrgInfoController {
         return YSDRZPResult.success;
     }
 
-    @GetMapping("/editOrg")
-    public String editOrg(){
-        return "org/editOrg";
-    }
-
     /**
      * 编辑机构
      * @return
@@ -69,11 +59,6 @@ public class OrgInfoController {
         }
         orgInfoService.updateByPrimaryKey(orgInfo);
         return YSDRZPResult.success;
-    }
-
-    @GetMapping("/delOrg")
-    public String delOrg(){
-        return "org/delOrg";
     }
 
     /**

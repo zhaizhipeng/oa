@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Page <T> {
 
-    private Integer currentPage = 1;
+    private Integer currentPage = 0;
 
     private Integer pageSize = 10;
 

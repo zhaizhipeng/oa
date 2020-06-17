@@ -10,10 +10,10 @@ public interface IOrgInfoService extends IBaseService<OrgInfo>{
 
     /**
      * 分页查询组织机构列表
-     * @param page
+     * @param orgSearchVo
      * @return
      */
-    ResultUtil getList(Integer page, Integer limit, OrgSearchVo orgSearchVo);
+    ResultUtil getList(OrgSearchVo orgSearchVo);
 
     /**
      * 根据机构名称查询机构信息

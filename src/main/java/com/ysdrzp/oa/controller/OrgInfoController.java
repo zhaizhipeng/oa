@@ -7,9 +7,7 @@ import com.ysdrzp.oa.service.IOrgInfoService;
 import com.ysdrzp.oa.vo.OrgSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("orgInfo")
@@ -20,15 +18,14 @@ public class OrgInfoController {
 
     /**
      * 获取机构列表
-     * @param page
-     * @param limit
+     * @param orgSearchVo
      * @return
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
-    public ResultUtil list(Integer page,Integer limit, OrgSearchVo orgSearchVo){
+    public ResultUtil list(@RequestBody OrgSearchVo orgSearchVo){
 
-        ResultUtil resultUtil = orgInfoService.getList(page, limit, orgSearchVo);
+        ResultUtil resultUtil = orgInfoService.getList(orgSearchVo);
         return resultUtil;
     }
 

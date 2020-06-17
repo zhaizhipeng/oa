@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@include file="application/include/taglib.jsp" %>
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>OA 后台管理系统管理</title>
-        <link rel="stylesheet" href="layui/css/layui.css">
-        <script src="layui/layui.js"></script>
-
+        <link rel="stylesheet" href="${ysdrzp}/layui/css/layui.css">
         <script>
-            var ctx = "${ctx}";
+            var ysdrzp = "${ysdrzp}";
         </script>
     </head>
 
     <body>
-        <div class="layui-layout-admin">
+        <div class="layui-layout layui-layout-admin">
             <div class="layui-header">
                 <div class="layui-logo">OA 后台管理系统</div>
                 <ul class="layui-nav layui-layout-left">
@@ -22,7 +20,7 @@
                 </ul>
                 <ul class="layui-nav layui-layout-right">
                     <li class="layui-nav-item">
-                        <a href=""><img src="" class="layui-nav-img">翟</a>
+                        <a href=""><img src="" class="layui-nav-img">江湖最后一个大佬</a>
                         <dl class="layui-nav-child">
                             <dd><a href="">基本资料</a></dd>
                             <dd><a href="">修改密码</a></dd>
@@ -38,7 +36,7 @@
                         <li class="layui-nav-item">
                             <a href="javascript:;">机构管理</a>
                             <dl class="layui-nav-child">
-                                <dd><a href="${ctx}/orgInfo/list">组织机构</a></dd>
+                                <dd><a href="${ysdrzp}/application/org/org_list.jsp">组织机构</a></dd>
                                 <dd><a href="">用户列表</a></dd>
                             </dl>
                         </li>
@@ -55,27 +53,6 @@
 
             <div class="layui-body">
                 <div class="layui-tab-content">
-                    <table class="layui-table">
-                        <thead>
-                            <tr>
-                                <th>昵称</th>
-                                <th>加入时间</th>
-                                <th>签名</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>贤心</td>
-                                <td>2016-11-29</td>
-                                <td>人生就像是一场修行</td>
-                            </tr>
-                            <tr>
-                                <td>许闲心</td>
-                                <td>2016-11-28</td>
-                                <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
 
@@ -84,16 +61,13 @@
             </div>
         </div>
 
+        <script src="${ysdrzp}/layui/layui.js"></script>
+
         <script>
-            layui.use('element', function(){
+            layui.use('element', function () {
                 var element = layui.element;
-                var openTitle = '机构管理';
-                var content =  null;
-                element.tabAdd("sideNav",{
-                    title : openTitle,
-                    content : content,
-                    url : {ctx} + "/orgInfo/list",
-                    id : new Date().getTime()
+                element.tabAdd('sideNav',{
+
                 });
             });
         </script>

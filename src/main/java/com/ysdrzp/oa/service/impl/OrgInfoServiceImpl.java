@@ -1,8 +1,8 @@
 package com.ysdrzp.oa.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ysdrzp.oa.common.Page;
 import com.ysdrzp.oa.common.ResultUtil;
 import com.ysdrzp.oa.dao.IBaseMapper;
 import com.ysdrzp.oa.dao.OrgInfoMapper;
@@ -26,8 +26,8 @@ public class OrgInfoServiceImpl extends BaseServiceImpl<OrgInfo> implements IOrg
     }
 
     @Override
-    public ResultUtil getList(Integer page, Integer limit, OrgSearchVo orgSearchVo) {
-        PageHelper.startPage(1, 10);
+    public ResultUtil getList(OrgSearchVo orgSearchVo) {
+        PageHelper.startPage(orgSearchVo.getPage(), orgSearchVo.getLimit());
         List<OrgInfo > list = orgInfoMapper.getList(orgSearchVo);
         PageInfo<OrgInfo> pageInfo = new PageInfo<>(list);
 

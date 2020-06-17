@@ -4,63 +4,69 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>机构列表</title>
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-        <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
-        <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="${ctx}/layui/css/layui.css" media="all" />
-        <script src="${ctx}/layui/layui.js"/>
-        <script>
-            var ctx = "${ctx}";
-        </script>
+        <title>机构管理</title>
+        <link rel="stylesheet" href="${ysdrzp}/layui/css/layui.css" media="all" />
+        <script>var ysdrzp = "${ysdrzp}";</script>
     </head>
 
     <body class="childrenBody">
+
         <form class="layui-form">
             <blockquote class="layui-elem-quote quoteBox">
                 <form class="layui-form">
                     <div class="layui-inline">
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input searchVal" name="orgName" placeholder="请输入搜索的内容" />
+                            <input type="text" class="layui-input searchVal" name="orgName" placeholder="请输入机构名称" />
                         </div>
-                        <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                        <a class="layui-btn search_btn" data-type="search">搜索</a>
                     </div>
                 </form>
             </blockquote>
 
-            <table id="orgList" lay-filter="orgList"></table>
+            <table id="orgTable" lay-filter=""></table>
 
         </form>
 
-        <script>
-            layui.use('table', function(){
-                var table = layui.table;
+        <script src="${ysdrzp}/layui/layui.js"></script>
 
-                //加载页面数据
-                table.render({
-                    id : 'orgList',
-                    elem : '#orgList',
-                    url : ctx + '/orgInfo/list',
-                    limit : 10,
-                    limits : [ 10, 20, 30, 40 ],
-                    cols : [[
-                        {
-                            type : 'checkbox'
-                        },
-                        {
-                            field : 'orgId',
-                            title : '邮箱'
-                        },
-                        {
-                            field : 'OrgName',
-                            title : '昵称'
-                        }]],
-                    page : true
+        <script>
+            layui.use(['table','jquery'], function(){
+                var table = layui.table, $ = layui.jquery;
+
+                var tableIns = table.render({
+                    elem: '#orgTable'
+                    ,height: 500
+                    ,url: ysdrzp + '/orgInfo/list'
+                    ,method: 'post'
+                    ,contentType: 'application/json'
+                    ,page: true
+                    ,cols: [[
+                        {field: 'id', title: 'ID', width:200, sort: true, fixed: 'left'}
+                        ,{field: 'orgId', title: '机构ID', width:200}
+                        ,{field: 'orgName', title: '机构名称', width:200}
+                        ,{field: 'fatherId', title: '父机构ID', width: 200}
+                        ,{field: 'createUserName',title: '创建人', width: 200}
+                        ,{field: 'updateUserName',title: '更新人'}
+                    ]]
+                    ,limit: 10
+                    ,limits:[5,10,20,50,100]
+                    ,even: true
+                    ,text: '暂无数据'
                 });
+
+                active = {
+                    search: function(){
+                        var orgName = $("#orgName");
+                        tableIns.reload('orgTable',{
+                            page: {
+                                curr: 1
+                            },
+                            where: {
+                                orgName: orgName.val()
+                            }
+                        })
+                    }
+                };
 
             });
         </script>

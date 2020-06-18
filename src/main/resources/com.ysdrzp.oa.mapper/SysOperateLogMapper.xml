@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdrzp.oa.dao.SysOperateLogMapper">
+
+  <resultMap id="BaseResultMap" type="com.ysdrzp.oa.entity.SysOperateLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="operate_type" jdbcType="INTEGER" property="operateType" />
+    <result column="old_role_ids" jdbcType="VARCHAR" property="oldRoleIds" />
+    <result column="role_ids" jdbcType="VARCHAR" property="roleIds" />
+    <result column="old_role_names" jdbcType="VARCHAR" property="oldRoleNames" />
+    <result column="role_names" jdbcType="VARCHAR" property="roleNames" />
+    <result column="old_resources_names" jdbcType="VARCHAR" property="oldResourcesNames" />
+    <result column="resources_names" jdbcType="VARCHAR" property="resourcesNames" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="misc_desc" jdbcType="VARCHAR" property="miscDesc" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_oper_id" jdbcType="BIGINT" property="createOperId" />
+    <result column="create_oper_name" jdbcType="VARCHAR" property="createOperName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_oper_id" jdbcType="BIGINT" property="updateOperId" />
+    <result column="update_oper_name" jdbcType="VARCHAR" property="updateOperName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, operate_type, old_role_ids, role_ids, old_role_names, role_names, old_resources_names, 
+    resources_names, user_name, content, misc_desc, status, create_time, create_oper_id, 
+    create_oper_name, update_time, update_oper_id, update_oper_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_operate_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_operate_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.ysdrzp.oa.entity.SysOperateLog">
+    insert into sys_operate_log (id, operate_type, old_role_ids, 
+      role_ids, old_role_names, role_names, 
+      old_resources_names, resources_names, user_name, 
+      content, misc_desc, status, 
+      create_time, create_oper_id, create_oper_name, 
+      update_time, update_oper_id, update_oper_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{operateType,jdbcType=INTEGER}, #{oldRoleIds,jdbcType=VARCHAR}, 
+      #{roleIds,jdbcType=VARCHAR}, #{oldRoleNames,jdbcType=VARCHAR}, #{roleNames,jdbcType=VARCHAR}, 
+      #{oldResourcesNames,jdbcType=VARCHAR}, #{resourcesNames,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{miscDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createOperId,jdbcType=BIGINT}, #{createOperName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateOperId,jdbcType=BIGINT}, #{updateOperName,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.ysdrzp.oa.entity.SysOperateLog">
+    insert into sys_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="oldRoleIds != null">
+        old_role_ids,
+      </if>
+      <if test="roleIds != null">
+        role_ids,
+      </if>
+      <if test="oldRoleNames != null">
+        old_role_names,
+      </if>
+      <if test="roleNames != null">
+        role_names,
+      </if>
+      <if test="oldResourcesNames != null">
+        old_resources_names,
+      </if>
+      <if test="resourcesNames != null">
+        resources_names,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="miscDesc != null">
+        misc_desc,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createOperId != null">
+        create_oper_id,
+      </if>
+      <if test="createOperName != null">
+        create_oper_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id,
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="oldRoleIds != null">
+        #{oldRoleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="roleIds != null">
+        #{roleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="oldRoleNames != null">
+        #{oldRoleNames,jdbcType=VARCHAR},
+      </if>
+      <if test="roleNames != null">
+        #{roleNames,jdbcType=VARCHAR},
+      </if>
+      <if test="oldResourcesNames != null">
+        #{oldResourcesNames,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesNames != null">
+        #{resourcesNames,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="miscDesc != null">
+        #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ysdrzp.oa.entity.SysOperateLog">
+    update sys_operate_log
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="oldRoleIds != null">
+        old_role_ids = #{oldRoleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="roleIds != null">
+        role_ids = #{roleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="oldRoleNames != null">
+        old_role_names = #{oldRoleNames,jdbcType=VARCHAR},
+      </if>
+      <if test="roleNames != null">
+        role_names = #{roleNames,jdbcType=VARCHAR},
+      </if>
+      <if test="oldResourcesNames != null">
+        old_resources_names = #{oldResourcesNames,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesNames != null">
+        resources_names = #{resourcesNames,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="miscDesc != null">
+        misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        create_oper_id = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name = #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ysdrzp.oa.entity.SysOperateLog">
+    update sys_operate_log
+    set operate_type = #{operateType,jdbcType=INTEGER},
+      old_role_ids = #{oldRoleIds,jdbcType=VARCHAR},
+      role_ids = #{roleIds,jdbcType=VARCHAR},
+      old_role_names = #{oldRoleNames,jdbcType=VARCHAR},
+      role_names = #{roleNames,jdbcType=VARCHAR},
+      old_resources_names = #{oldResourcesNames,jdbcType=VARCHAR},
+      resources_names = #{resourcesNames,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_oper_id = #{createOperId,jdbcType=BIGINT},
+      create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      update_oper_name = #{updateOperName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,7 +1,5 @@
 package com.ysdrzp.oa.dao;
 
-import com.ysdrzp.oa.entity.OrgInfo;
-
 /**
  * 基础 Dao
  * @param <T>
@@ -14,7 +12,7 @@ public interface IBaseMapper<T> {
 
     int insertSelective(T t);
 
-    OrgInfo selectByPrimaryKey(Long id);
+    T selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(T t);
 

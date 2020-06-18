@@ -53,12 +53,11 @@
                     page: true,
                     cols: [[
                         {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
-                        {field: 'orgId', title: '机构ID', width:180},
-                        {field: 'orgName', title: '机构名称', width:180},
-                        {field: 'fatherId', title: '父机构ID', width: 180},
-                        {field: 'createUserName',title: '创建人', width: 180},
-                        {field: 'updateUserName',title: '更新人', width: 180},
-                        {fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+                        {field: 'orgId', title: '机构ID', width:120},
+                        {field: 'orgName', title: '机构名称', width:200},
+                        {field: 'updateTime', title: '操作时间', width: 200, templet:'#updatedTimeTpl'},
+                        {field: 'updateUserName',title: '操作人', width: 150},
+                        {fixed: 'right', align:'center', toolbar: '#barDemo'}
                     ]],
                     limit: 10,
                     limits:[5,10,20,50],

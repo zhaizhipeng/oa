@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdrzp.oa.dao.SysOrgInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.ysdrzp.oa.entity.SysOrgInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="father_org_id" jdbcType="VARCHAR" property="fatherOrgId" />
+    <result column="father_org_name" jdbcType="VARCHAR" property="fatherOrgName" />
+    <result column="disabled" jdbcType="INTEGER" property="disabled" />
+    <result column="misc_desc" jdbcType="VARCHAR" property="miscDesc" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_oper_id" jdbcType="BIGINT" property="createOperId" />
+    <result column="create_oper_name" jdbcType="VARCHAR" property="createOperName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_oper_id" jdbcType="BIGINT" property="updateOperId" />
+    <result column="update_oper_name" jdbcType="VARCHAR" property="updateOperName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, org_id, org_name, father_org_id, father_org_name, disabled, misc_desc, status, 
+    create_time, create_oper_id, create_oper_name, update_time, update_oper_id, update_oper_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_org_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_org_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.ysdrzp.oa.entity.SysOrgInfo">
+    insert into sys_org_info (id, org_id, org_name, 
+      father_org_id, father_org_name, disabled, 
+      misc_desc, status, create_time, 
+      create_oper_id, create_oper_name, update_time, 
+      update_oper_id, update_oper_name)
+    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{fatherOrgId,jdbcType=VARCHAR}, #{fatherOrgName,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, 
+      #{miscDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createOperId,jdbcType=BIGINT}, #{createOperName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateOperId,jdbcType=BIGINT}, #{updateOperName,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.ysdrzp.oa.entity.SysOrgInfo">
+    insert into sys_org_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+      <if test="fatherOrgId != null">
+        father_org_id,
+      </if>
+      <if test="fatherOrgName != null">
+        father_org_name,
+      </if>
+      <if test="disabled != null">
+        disabled,
+      </if>
+      <if test="miscDesc != null">
+        misc_desc,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createOperId != null">
+        create_oper_id,
+      </if>
+      <if test="createOperName != null">
+        create_oper_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id,
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherOrgId != null">
+        #{fatherOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherOrgName != null">
+        #{fatherOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="miscDesc != null">
+        #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ysdrzp.oa.entity.SysOrgInfo">
+    update sys_org_info
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherOrgId != null">
+        father_org_id = #{fatherOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherOrgName != null">
+        father_org_name = #{fatherOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="miscDesc != null">
+        misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        create_oper_id = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name = #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ysdrzp.oa.entity.SysOrgInfo">
+    update sys_org_info
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      father_org_id = #{fatherOrgId,jdbcType=VARCHAR},
+      father_org_name = #{fatherOrgName,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_oper_id = #{createOperId,jdbcType=BIGINT},
+      create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      update_oper_name = #{updateOperName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getList" parameterType="com.ysdrzp.oa.vo.OrgSearchVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_info
+    <where>
+      <if test="orgName != null and orgName != ''">
+        and org_name = #{orgName}
+      </if>
+    </where>
+  </select>
+
+</mapper>

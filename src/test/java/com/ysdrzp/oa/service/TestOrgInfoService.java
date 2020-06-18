@@ -11,10 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestOrgInfoService {
 
     @Autowired
-    private IOrgInfoService orgInfoService;
+    private ISysOrgInfoService sysOrgInfoService;
 
     @Test
     public void testSelect(){
-        System.out.println(orgInfoService.selectByPrimaryKey(1l));
+        System.out.println(sysOrgInfoService.selectByPrimaryKey(1l));
     }
 }

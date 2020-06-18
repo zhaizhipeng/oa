@@ -93,6 +93,6 @@
 	</form>
 
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
-	<script type="text/javascript" src="${ctx }/application/org/addOrg.js"></script>
+	<script type="text/javascript" src="${ctx }/application/sys/org/addOrg.js"></script>
 </body>
 </html>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdrzp.oa.dao.SysRoleMapper">
+
+  <resultMap id="BaseResultMap" type="com.ysdrzp.oa.entity.SysRole">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_cn_name" jdbcType="VARCHAR" property="roleCnName" />
+    <result column="role_en_name" jdbcType="VARCHAR" property="roleEnName" />
+    <result column="disabled" jdbcType="INTEGER" property="disabled" />
+    <result column="misc_desc" jdbcType="VARCHAR" property="miscDesc" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_oper_id" jdbcType="BIGINT" property="createOperId" />
+    <result column="create_oper_name" jdbcType="VARCHAR" property="createOperName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_oper_id" jdbcType="BIGINT" property="updateOperId" />
+    <result column="update_oper_name" jdbcType="VARCHAR" property="updateOperName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, role_cn_name, role_en_name, disabled, misc_desc, status, create_time, create_oper_id, 
+    create_oper_name, update_time, update_oper_id, update_oper_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.ysdrzp.oa.entity.SysRole">
+    insert into sys_role (id, role_cn_name, role_en_name, 
+      disabled, misc_desc, status, 
+      create_time, create_oper_id, create_oper_name, 
+      update_time, update_oper_id, update_oper_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleCnName,jdbcType=VARCHAR}, #{roleEnName,jdbcType=VARCHAR}, 
+      #{disabled,jdbcType=INTEGER}, #{miscDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createOperId,jdbcType=BIGINT}, #{createOperName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateOperId,jdbcType=BIGINT}, #{updateOperName,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.ysdrzp.oa.entity.SysRole">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleCnName != null">
+        role_cn_name,
+      </if>
+      <if test="roleEnName != null">
+        role_en_name,
+      </if>
+      <if test="disabled != null">
+        disabled,
+      </if>
+      <if test="miscDesc != null">
+        misc_desc,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createOperId != null">
+        create_oper_id,
+      </if>
+      <if test="createOperName != null">
+        create_oper_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id,
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleCnName != null">
+        #{roleCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleEnName != null">
+        #{roleEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="miscDesc != null">
+        #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ysdrzp.oa.entity.SysRole">
+    update sys_role
+    <set>
+      <if test="roleCnName != null">
+        role_cn_name = #{roleCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleEnName != null">
+        role_en_name = #{roleEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="miscDesc != null">
+        misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        create_oper_id = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name = #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ysdrzp.oa.entity.SysRole">
+    update sys_role
+    set role_cn_name = #{roleCnName,jdbcType=VARCHAR},
+      role_en_name = #{roleEnName,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_oper_id = #{createOperId,jdbcType=BIGINT},
+      create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      update_oper_name = #{updateOperName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

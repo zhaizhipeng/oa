@@ -1,7 +1,7 @@
 package com.ysdrzp.oa.controller;
 
 import com.ysdrzp.oa.common.YSDRZPResult;
-import com.ysdrzp.oa.service.IOrgInfoService;
+import com.ysdrzp.oa.service.ISysOrgInfoService;
 import com.ysdrzp.oa.vo.OrgSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("orgInfo")
-public class OrgInfoController {
+public class SysOrgInfoController {
 
     @Autowired
-    private IOrgInfoService orgInfoService;
+    private ISysOrgInfoService sysOrgInfoService;
 
     /**
      * 获取机构列表
      * @param orgSearchVo
      * @return
      */
-    @PostMapping("/list")
+    @PostMapping("list")
     @ResponseBody
     public YSDRZPResult list(@RequestBody OrgSearchVo orgSearchVo){
 
-        YSDRZPResult result = orgInfoService.getList(orgSearchVo);
+        YSDRZPResult result = sysOrgInfoService.getList(orgSearchVo);
         return result;
     }
 

@@ -1,7 +1,6 @@
 package com.ysdrzp.oa.service.impl;
 
 import com.ysdrzp.oa.dao.IBaseMapper;
-import com.ysdrzp.oa.entity.OrgInfo;
 import com.ysdrzp.oa.service.IBaseService;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,8 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public OrgInfo selectByPrimaryKey(Long id) {
-        return getMapper().selectByPrimaryKey(id);
+    public T selectByPrimaryKey(Long id) {
+        return (T) getMapper().selectByPrimaryKey(id);
     }
 
     @Override

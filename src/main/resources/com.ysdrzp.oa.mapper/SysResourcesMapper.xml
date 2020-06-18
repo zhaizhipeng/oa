@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdrzp.oa.dao.SysResourcesMapper">
+
+  <resultMap id="BaseResultMap" type="com.ysdrzp.oa.entity.SysResources">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resources_name" jdbcType="VARCHAR" property="resourcesName" />
+    <result column="resources_key" jdbcType="VARCHAR" property="resourcesKey" />
+    <result column="resources_type" jdbcType="INTEGER" property="resourcesType" />
+    <result column="url_type" jdbcType="INTEGER" property="urlType" />
+    <result column="father_id" jdbcType="BIGINT" property="fatherId" />
+    <result column="misc_desc" jdbcType="VARCHAR" property="miscDesc" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_oper_id" jdbcType="BIGINT" property="createOperId" />
+    <result column="create_oper_name" jdbcType="VARCHAR" property="createOperName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_oper_id" jdbcType="BIGINT" property="updateOperId" />
+    <result column="update_oper_name" jdbcType="VARCHAR" property="updateOperName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, resources_name, resources_key, resources_type, url_type, father_id, misc_desc, 
+    status, create_time, create_oper_id, create_oper_name, update_time, update_oper_id, 
+    update_oper_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resources
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_resources
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.ysdrzp.oa.entity.SysResources">
+    insert into sys_resources (id, resources_name, resources_key, 
+      resources_type, url_type, father_id, 
+      misc_desc, status, create_time, 
+      create_oper_id, create_oper_name, update_time, 
+      update_oper_id, update_oper_name)
+    values (#{id,jdbcType=BIGINT}, #{resourcesName,jdbcType=VARCHAR}, #{resourcesKey,jdbcType=VARCHAR}, 
+      #{resourcesType,jdbcType=INTEGER}, #{urlType,jdbcType=INTEGER}, #{fatherId,jdbcType=BIGINT}, 
+      #{miscDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createOperId,jdbcType=BIGINT}, #{createOperName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateOperId,jdbcType=BIGINT}, #{updateOperName,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.ysdrzp.oa.entity.SysResources">
+    insert into sys_resources
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resourcesName != null">
+        resources_name,
+      </if>
+      <if test="resourcesKey != null">
+        resources_key,
+      </if>
+      <if test="resourcesType != null">
+        resources_type,
+      </if>
+      <if test="urlType != null">
+        url_type,
+      </if>
+      <if test="fatherId != null">
+        father_id,
+      </if>
+      <if test="miscDesc != null">
+        misc_desc,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createOperId != null">
+        create_oper_id,
+      </if>
+      <if test="createOperName != null">
+        create_oper_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id,
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="resourcesName != null">
+        #{resourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesKey != null">
+        #{resourcesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesType != null">
+        #{resourcesType,jdbcType=INTEGER},
+      </if>
+      <if test="urlType != null">
+        #{urlType,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null">
+        #{fatherId,jdbcType=BIGINT},
+      </if>
+      <if test="miscDesc != null">
+        #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ysdrzp.oa.entity.SysResources">
+    update sys_resources
+    <set>
+      <if test="resourcesName != null">
+        resources_name = #{resourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesKey != null">
+        resources_key = #{resourcesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesType != null">
+        resources_type = #{resourcesType,jdbcType=INTEGER},
+      </if>
+      <if test="urlType != null">
+        url_type = #{urlType,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null">
+        father_id = #{fatherId,jdbcType=BIGINT},
+      </if>
+      <if test="miscDesc != null">
+        misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        create_oper_id = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="createOperName != null">
+        create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperId != null">
+        update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateOperName != null">
+        update_oper_name = #{updateOperName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ysdrzp.oa.entity.SysResources">
+    update sys_resources
+    set resources_name = #{resourcesName,jdbcType=VARCHAR},
+      resources_key = #{resourcesKey,jdbcType=VARCHAR},
+      resources_type = #{resourcesType,jdbcType=INTEGER},
+      url_type = #{urlType,jdbcType=INTEGER},
+      father_id = #{fatherId,jdbcType=BIGINT},
+      misc_desc = #{miscDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_oper_id = #{createOperId,jdbcType=BIGINT},
+      create_oper_name = #{createOperName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_oper_id = #{updateOperId,jdbcType=BIGINT},
+      update_oper_name = #{updateOperName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

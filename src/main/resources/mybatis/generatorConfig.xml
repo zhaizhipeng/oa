@@ -4,7 +4,7 @@
 
 <generatorConfiguration>
     <!--添加数据库的连接jar包的位置，在项目的左边最下的external libraries中找到复制全路径-->
-    <classPathEntry location="D:\maven\repo\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <classPathEntry location="D:\maven\mvnRespo\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
 
     <context id="testTables" targetRuntime="MyBatis3">
         <commentGenerator>
@@ -22,7 +22,7 @@
         </javaTypeResolver>
 
         <!-- targetProject:生成PO类的位置 -->
-        <javaModelGenerator targetPackage="com.ysdrzp.entity" targetProject=".\src\main\java">
+        <javaModelGenerator targetPackage="com.ysdrzp.oa.entity" targetProject=".\src\main\java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
             <!-- 从数据库返回的值被清理前后的空格 -->
@@ -30,19 +30,24 @@
         </javaModelGenerator>
 
         <!-- targetProject:mapper映射文件生成的位置 -->
-        <sqlMapGenerator targetPackage="com.ysdrzp.mapper" targetProject=".\src\main\resources">
+        <sqlMapGenerator targetPackage="com.ysdrzp.oa.mapper" targetProject=".\src\main\resources">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
         <!-- targetPackage：mapper接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ysdrzp.dao" targetProject=".\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ysdrzp.oa.dao" targetProject=".\src\main\java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
-        <!-- 指定在数据库中已经存在的表名 -->
-        <table schema="oa" tableName="org_info"></table>
+        <table schema="oa" tableName="sys_org_info"></table>
+        <table schema="oa" tableName="sys_user"></table>
+        <table schema="oa" tableName="sys_role"></table>
+        <table schema="oa" tableName="sys_user_role"></table>
+        <table schema="oa" tableName="sys_resources"></table>
+        <table schema="oa" tableName="sys_role_resources"></table>
+        <table schema="oa" tableName="sys_operate_log"></table>
 
     </context>
 </generatorConfiguration>

@@ -1,4 +1,4 @@
 # 后台脚手架项目
 
-## 整合 SSM + layui
-## 基于RBAC 权限控制
+## 1、整合 SSM + layui
+## 2、基于 RBAC 权限控制

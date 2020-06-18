@@ -16,4 +16,10 @@ public interface ISysOrgInfoService extends IBaseService<SysOrgInfo>{
      */
     YSDRZPResult getList(OrgSearchVO orgSearchVO);
 
+    /**
+     * 根据机构名称查询机构信息
+     * @param orgName
+     * @return
+     */
+    SysOrgInfo selectByOrgName(String orgName);
 }

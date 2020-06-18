@@ -216,4 +216,11 @@
     </where>
   </select>
 
+  <select id="selectByOrgName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_org_info
+    where org_name = #{orgName}
+  </select>
+
 </mapper>

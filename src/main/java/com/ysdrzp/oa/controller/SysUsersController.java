@@ -1,7 +1,10 @@
 package com.ysdrzp.oa.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.service.ISysUsersService;
+import com.ysdrzp.oa.vo.UserAddVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,19 @@ public class SysUsersController {
     public YSDRZPResult list(@RequestBody UsersSearchVO usersSearchVO){
 
         YSDRZPResult result = sysUsersService.getList(usersSearchVO);
+        return result;
+    }
+
+    /**
+     * 新增用户
+     * @param userAddVO
+     * @return
+     */
+    @PostMapping("addUser")
+    @ResponseBody
+    public YSDRZPResult addUser(@RequestBody UserAddVO userAddVO){
+        System.out.println(JSONUtil.toJsonStr(userAddVO));
+        YSDRZPResult result = sysUsersService.addUser(userAddVO);
         return result;
     }
 

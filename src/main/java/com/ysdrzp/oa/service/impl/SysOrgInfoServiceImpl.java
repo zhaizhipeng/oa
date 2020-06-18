@@ -31,4 +31,9 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
         PageInfo<SysOrgInfo> pageInfo = new PageInfo<>(list);
         return YSDRZPResult.ok("ok", pageInfo.getTotal(), list);
     }
+
+    @Override
+    public SysOrgInfo selectByOrgName(String orgName) {
+        return sysOrgInfoMapper.selectByOrgName(orgName);
+    }
 }

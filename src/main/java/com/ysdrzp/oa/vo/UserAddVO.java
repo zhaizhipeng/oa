@@ -3,11 +3,7 @@ package com.ysdrzp.oa.vo;
 import lombok.Data;
 
 @Data
-public class UsersSearchVO {
-
-    private Integer page;
-
-    private Integer limit;
+public class UserAddVO {
 
     /**
      * 用户名
@@ -20,9 +16,7 @@ public class UsersSearchVO {
     private String mobilePhone;
 
     /**
-     * 机构所属
+     * 备注
      */
-    private String orgName;
-
-    private String orgId;
+    private String miscDesc;
 }

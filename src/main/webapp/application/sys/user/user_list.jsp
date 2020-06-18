@@ -29,13 +29,15 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">机构所属</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id = "orgId" name="orgId"/>
+                            <input type="text" class="layui-input" id = "orgName" name="orgName"/>
                         </div>
                     </div>
 
-                    <button type="button" id = "reload-btn" class="layui-btn layui-inline" data-type="reload">查询</button>
+                    <button type="button" id = "reload" class="layui-btn layui-inline">查询</button>
+                    <button type="button" id = "new-user" class="layui-btn layui-inline"><i class="layui-icon layui-icon-add-1"></i>新增用户</button>
                 </form>
             </blockquote>
+
 
             <table id="userTable" lay-filter=""></table>
 
@@ -74,13 +76,14 @@
                     page: true,
                     cols: [[
                         {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
-                        {field: 'mobilePhone', title: '手机号', width:180},
-                        {field: 'userName', title: '用户名称', width:180},
-                        {field: 'orgName', title: '机构所属', width:180},
-                        {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
+                        {field: 'mobilePhone', title: '手机号', width:150},
+                        {field: 'userName', title: '用户名称', width:150},
+                        {field: 'orgName', title: '机构所属', width:150},
+                        {field: 'pwdValidDate', title: '密码有效日期', width: 180, templet:'<div>{{ layui.util.toDateString(d.pwdValidDate, "yyyy-MM-dd") }}</div>'},
                         {field: 'miscDesc', title: '备注', width:180},
+                        {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH-mm-ss") }}</div>'},
                         {field: 'disabled', title: '状态', width:120, templet:'#disabledTpl'},
-                        {fixed: 'right', align:'center', toolbar: '#singleOperBar'}
+                        {align: 'center', toolbar: '#singleOperBar', width: 200, fixed: 'right'}
                     ]],
                     limit: 10,
                     limits:[5,10,20,50],
@@ -89,7 +92,10 @@
                     ,toolbar: true
                 });
 
-                $('.layui-btn').click(function () {
+                /**
+                 * 重新加载用户列表
+                 */
+                $('#reload').click(function () {
                     var userName = $('#userName').val();
                     var mobilePhone = $('#mobilePhone').val();
                     var orgId = $('#orgId').val();
@@ -106,7 +112,26 @@
                             curr: 1
                         }
                     });
-                })
+                });
+
+                /**
+                 * 新增用户
+                 */
+                $("#new-user").click(function(){
+                   var index = layer.open({
+                        type: 2,
+                        title: '添加用户',
+                        shadeClose: true,
+                        area: ['560px', '480px'],
+                        content: ysdrzp + '/application/sys/user/add_user.jsp',
+                        cancel: function(index, layero){
+                            if(confirm('确定取消新增用户么')){
+                                layer.close(index)
+                            }
+                            return false;
+                        }
+                   });
+                });
             });
         </script>
 

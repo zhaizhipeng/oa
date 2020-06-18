@@ -42,6 +42,7 @@
         u.mobile_phone as mobilePhone,
         u.user_name as userName,
         o.org_name as orgName,
+        u.pwd_valid_date as pwdValidDate,
         u.last_login_date as lastLoginDate,
         u.disabled,
         u.misc_desc as miscDesc
@@ -58,6 +59,13 @@
         and u.org_id = #{orgId}
       </if>
     </where>
+  </select>
+
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_name = #{userName}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

@@ -33,8 +33,18 @@ public class SysUsersSearchDTO {
     private Integer disabled;
 
     /**
+     * 机构所属
+     */
+    private String orgName;
+
+    /**
      * 上次登录时间
      */
     private Date lastLoginDate;
+
+    /**
+     * 密码有效日期
+     */
+    private Date pwdValidDate;
 
 }

@@ -39,7 +39,7 @@
             </blockquote>
 
 
-            <table id="userTable" lay-filter=""></table>
+            <table id="userTable" lay-filter="user-list"></table>
 
         </form>
 
@@ -47,11 +47,11 @@
 
         <script type="text/html" id="singleOperBar">
             {{# if(d.disabled == 0 ){ }}
-            <a class="layui-btn layui-btn-xs" lay-event="check">启用</a>
+            <a class="layui-btn layui-btn-xs" lay-event="enable">启用</a>
             {{# } else { }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">禁用</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable">禁用</a>
             {{# } }}
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-warm layui-btn-xs " lay-event="pwd-reset">密码重置</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
 
@@ -65,7 +65,7 @@
 
         <script>
             layui.use(['table','jquery'], function(){
-                var table = layui.table, $ = layui.jquery;
+                var table = layui.table, $ = layui.jquery, layer = layui.layer;
 
                 var tableIns = table.render({
                     elem: '#userTable',
@@ -75,14 +75,14 @@
                     contentType: 'application/json',
                     page: true,
                     cols: [[
-                        {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
+                        /*{field: 'id', title: 'ID', width:100, sort: true},*/
                         {field: 'mobilePhone', title: '手机号', width:150},
-                        {field: 'userName', title: '用户名称', width:150},
-                        {field: 'orgName', title: '机构所属', width:150},
+                        {field: 'userName', title: '用户名', width:150},
+                        {field: 'orgName', title: '机构所属名称', width:150},
                         {field: 'pwdValidDate', title: '密码有效日期', width: 180, templet:'<div>{{ layui.util.toDateString(d.pwdValidDate, "yyyy-MM-dd") }}</div>'},
+                        {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
                         {field: 'miscDesc', title: '备注', width:180},
-                        {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH-mm-ss") }}</div>'},
-                        {field: 'disabled', title: '状态', width:120, templet:'#disabledTpl'},
+                        {field: 'disabled', title: '状态', width:120, templet:'#disabledTpl', fixed: 'right'},
                         {align: 'center', toolbar: '#singleOperBar', width: 200, fixed: 'right'}
                     ]],
                     limit: 10,
@@ -131,6 +131,98 @@
                             return false;
                         }
                    });
+                });
+
+                /**
+                 * 监听选中行
+                 * 注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                 */
+                table.on('tool(user-list)', function(obj){
+                    /**获得当前行数据*/
+                    var data = obj.data;
+                    /**获得 lay-event 对应的值*/
+                    var layEvent = obj.event;
+
+                    /**启用*/
+                    if(layEvent === 'enable'){
+                        layer.confirm('真的启用么', function(index){
+                            $.ajax({
+                                type:'get',
+                                url:'${ysdrzp}/user/enable?' + 'id=' + obj.data.id,
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        window.location.reload();
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    /**禁用*/
+                    if(layEvent === 'disable'){
+                        layer.confirm('真的禁用么', function(index){
+                            $.ajax({
+                                type:'get',
+                                url:'${ysdrzp}/user/disable?' + 'id=' + obj.data.id,
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        window.location.reload();
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    /**删除*/
+                    if(layEvent === 'del'){
+                        layer.confirm('真的删除行么', function(index){
+                            /**
+                             * 删除对应行（tr）的DOM结构，并更新缓存
+                             */
+                            obj.del();
+
+                            $.ajax({
+                                type:'get',
+                                url:'${ysdrzp}/user/delete?' + 'id=' + obj.data.id,
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        window.location.reload();
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    /**编辑*/
+                    /*if(layEvent === 'edit'){
+
+                        /!**
+                         * 同步更新缓存对应的值
+                         *!/
+                        obj.update({
+                            status: 0
+                        });
+                    }*/
+
+                    /**密码重置*/
+                    if(layEvent === 'pwd-reset'){
+
+                        layer.confirm('确定重置密码么', function(index){
+                            $.ajax({
+                                type:'get',
+                                url:'${ysdrzp}/user/pwdReset?' + 'id=' + obj.data.id,
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        window.location.reload();
+                                    });
+                                }
+                            });
+                        });
+                    }
                 });
             });
         </script>

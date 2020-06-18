@@ -32,11 +32,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and status = 1
   </select>
 
   <!-- 获取用户列表 -->
-  <select id="list" parameterType="com.ysdrzp.oa.vo.UsersSearchVO" resultType="com.ysdrzp.oa.dto.result.SysUsersSearchDTO">
+  <select id="getlist" parameterType="com.ysdrzp.oa.vo.UsersSearchVO" resultType="com.ysdrzp.oa.dto.result.SysUsersSearchDTO">
     select
         u.id,
         u.mobile_phone as mobilePhone,
@@ -49,6 +49,7 @@
     from sys_user u
     left join sys_org_info o on (u.org_id = o.org_id)
     <where>
+      u.status = 1
       <if test="userName != null and userName != ''">
         and u.user_name = #{userName}
       </if>
@@ -61,11 +62,11 @@
     </where>
   </select>
 
-  <select id="selectByUserName" resultMap="BaseResultMap">
+  <select id="selectUserIsExist" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sys_user
-    where user_name = #{userName}
+    where user_name = #{userName} and status = 1
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

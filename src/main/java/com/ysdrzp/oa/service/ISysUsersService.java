@@ -1,6 +1,7 @@
 package com.ysdrzp.oa.service;
 
 import com.ysdrzp.oa.common.YSDRZPResult;
+import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.entity.SysUser;
 import com.ysdrzp.oa.vo.UserAddVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
@@ -23,5 +24,33 @@ public interface ISysUsersService extends IBaseService<SysUser>{
      * @return
      */
     YSDRZPResult addUser(UserAddVO userAddVO);
+
+    /**
+     * 启用用户
+     * @param id
+     * @return
+     */
+    YSDRZPResult enableUser(Long id);
+
+    /**
+     * 禁用用户
+     * @param id
+     * @return
+     */
+    YSDRZPResult disableUser(Long id);
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    YSDRZPResult delUser(Long id);
+
+    /**
+     * 密码重置
+     * @param id
+     * @return
+     */
+    YSDRZPResult pwdReset(Long id);
 
 }

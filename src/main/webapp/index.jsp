@@ -16,15 +16,15 @@
             <div class="layui-header">
                 <div class="layui-logo">云上的日子</div>
                 <ul class="layui-nav layui-layout-left">
-                    <li class="layui-nav-item"><a href="javascript:void(0)"><i class="layui-icon-console"></i>控制台</a></li>
+                    <li class="layui-nav-item"><a href="javascript:void(0)"><i class="layui-icon layui-icon-console"></i>&nbsp;控制台</a></li>
                 </ul>
                 <ul class="layui-nav layui-layout-right">
                     <li class="layui-nav-item">
                         <a href=""><img src="image/head.jpg" class="layui-nav-img">向往的生活</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="">基本资料</a></dd>
-                            <dd><a href="">修改密码</a></dd>
-                            <dd><a href="">退出</a></dd>
+                            <dd><a href="javascript:void(0)">基本资料</a></dd>
+                            <dd><a href="javascript:void(0)">修改密码</a></dd>
+                            <dd><a href="javascript:void(0)">退出</a></dd>
                         </dl>
                     </li>
                 </ul>

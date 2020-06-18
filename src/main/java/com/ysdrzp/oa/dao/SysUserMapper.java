@@ -13,12 +13,13 @@ public interface SysUserMapper extends IBaseMapper<SysUser>{
      * @param usersSearchVO
      * @return
      */
-    List<SysUser> list(UsersSearchVO usersSearchVO);
+    List<SysUser> getlist(UsersSearchVO usersSearchVO);
 
     /**
      * 根据用户名称查询用户信息
      * @param userName
+     * @param mobilePhone
      * @return
      */
-    SysUser selectByUserName(@Param("userName") String userName);
+    SysUser selectUserIsExist(@Param("userName") String userName, @Param("mobilePhone") String mobilePhone);
 }

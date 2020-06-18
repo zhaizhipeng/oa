@@ -1,42 +1,55 @@
 package com.ysdrzp.oa.common;
 
-/**
- * 封装结果
- */
-public class YSDRZPResult {
+import lombok.Data;
 
-    /**
-     * 处理结结果
-     */
-    private boolean result;
+import java.io.Serializable;
 
-    /**
-     * 响应数据
-     */
-    private String data;
+@Data
+public class YSDRZPResult implements Serializable {
 
-    public YSDRZPResult(boolean result, String data){
-        this.result = result;
-        this.data = data;
-    }
+	private Integer code;
+	private String msg = "";
+	private Long count = 0L;
+	private Object data;
+	
+	public YSDRZPResult() {
+		super();
+	}
 
-    public static YSDRZPResult success = new YSDRZPResult(true, "成功");
+	public YSDRZPResult(Integer code) {
+		super();
+		this.code = code;
+	}
 
-    public static YSDRZPResult fail = new YSDRZPResult(false, "失败");
+	public YSDRZPResult(Integer code, String msg) {
+		super();
+		this.code = code;
+		this.msg = msg;
+	}
 
-    public boolean isResult() {
-        return result;
-    }
+	public static YSDRZPResult ok(){
+		return new YSDRZPResult(0);
+	}
+	
+	public static YSDRZPResult ok(Object list){
+		YSDRZPResult result = new YSDRZPResult();
+		result.setCode(0);
+		result.setData(list);;
+		return result;
+	}
+	public static YSDRZPResult ok(String msg){
+		YSDRZPResult result = new YSDRZPResult();
+		result.setCode(0);
+		result.setMsg(msg);
+		return result;
+	}
+	
+	public static YSDRZPResult error(){
+		return new YSDRZPResult(500,"没有此权限，请联系超管！");
+	}
 
-    public void setResult(boolean result) {
-        this.result = result;
-    }
+	public static YSDRZPResult error(String str){
+		return new YSDRZPResult(500, str);
+	}
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
 }

@@ -29,5 +29,6 @@
 
     <!-- 配置静态资源资源映射 -->
     <mvc:resources location="/layui/" mapping="/layui/**"/>
+    <mvc:resources location="/image/" mapping="/image/**"/>
 
 </beans>

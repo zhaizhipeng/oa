@@ -19,7 +19,7 @@
                         <div class="layui-input-inline">
                             <input type="text" class="layui-input" id = "orgName" name="orgName" placeholder="请输入机构名称" />
                         </div>
-                        <button type="button" id = "reload-btn" class="layui-btn layui-inline"  >查询</button>
+                        <button type="button" id = "reload-btn" class="layui-btn layui-inline"  data-type="reload">查询</button>
                     </div>
                 </form>
             </blockquote>
@@ -41,45 +41,44 @@
         </script>
 
         <script>
-            layui.use(['table','jquery','form'], function(){
-                var table = layui.table, $ = layui.jquery, form = layui.form;
+            layui.use(['table','jquery'], function(){
+                var table = layui.table, $ = layui.jquery;
 
                 var tableIns = table.render({
-                    elem: '#orgTable'
-                    ,height: 500
-                    ,url: ysdrzp + '/orgInfo/list'
-                    ,method: 'post'
-                    ,contentType: 'application/json'
-                    ,page: true
-                    ,cols: [[
-                        {field: 'id', title: 'ID', width:200, sort: true, fixed: 'left'}
-                        ,{field: 'orgId', title: '机构ID', width:200}
-                        ,{field: 'orgName', title: '机构名称', width:200}
-                        ,{field: 'fatherId', title: '父机构ID', width: 200}
-                        ,{field: 'createUserName',title: '创建人', width: 200}
-                        ,{field: 'updateUserName',title: '更新人'}
-                        ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
-                    ]]
-                    ,limit: 10
-                    ,limits:[5,10,20,50,100]
-                    ,even: true
-                    ,text: '暂无数据'
-                    ,toolbar: true
+                    elem: '#orgTable',
+                    height: 400,
+                    url: ysdrzp + '/orgInfo/list',
+                    method: 'post',
+                    contentType: 'application/json',
+                    page: true,
+                    cols: [[
+                        {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
+                        {field: 'orgId', title: '机构ID', width:180},
+                        {field: 'orgName', title: '机构名称', width:180},
+                        {field: 'fatherId', title: '父机构ID', width: 180},
+                        {field: 'createUserName',title: '创建人', width: 180},
+                        {field: 'updateUserName',title: '更新人', width: 180},
+                        {fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+                    ]],
+                    limit: 10,
+                    limits:[5,10,20,50],
+                    even: true,
+                    text: '暂无数据',
+                    toolbar: true
                 });
 
                 $('.layui-btn').click(function () {
                     var orgName = $('#orgName').val()
-                    table.reload('orgTable', {
-                        url: ysdrzp + '/orgInfo/list'
-                        ,methods:"post"
-                        ,limit: 10
-                        ,where: {
+                    tableIns.reload({
+                        url: ysdrzp + '/orgInfo/list',
+                        methods:"post",
+                        limit: 10,
+                        where: {
                             orgName : orgName
-                        }
-                        ,page: {
+                        },
+                        page: {
                             curr: 1
                         }
-                        ,text: '暂无数据'
                     });
                 })
             });

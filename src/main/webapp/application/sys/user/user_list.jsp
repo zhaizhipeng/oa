@@ -15,29 +15,50 @@
             <blockquote class="layui-elem-quote quoteBox">
                 <form class="layui-form">
                     <div class="layui-inline">
-                        <label class="layui-form-label">机构名称</label>
+                        <label class="layui-form-label">用户名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id = "orgName" name="orgName" placeholder="请输入机构名称" />
+                            <input type="text" class="layui-input" id = "userName" name="userName"/>
                         </div>
-                        <button type="button" id = "reload-btn" class="layui-btn layui-inline"  data-type="reload">查询</button>
                     </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id = "mobilePhone" name="mobilePhone"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">机构所属</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id = "orgId" name="orgId"/>
+                        </div>
+                    </div>
+
+                    <button type="button" id = "reload-btn" class="layui-btn layui-inline" data-type="reload">查询</button>
                 </form>
             </blockquote>
 
-            <table id="orgTable" lay-filter=""></table>
+            <table id="userTable" lay-filter=""></table>
 
         </form>
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
-        <script type="text/html" id="barDemo">
+        <script type="text/html" id="singleOperBar">
+            {{# if(d.disabled == 0 ){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="check">启用</a>
+            {{# } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">禁用</a>
+            {{# } }}
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
 
-            <!-- 这里同样支持 laytpl 语法，如： -->
-            {{#  if(d.auth > 2){ }}
-            <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
-            {{#  } }}
+        <script type="text/html" id="disabledTpl">
+            {{# if(d.disabled == 0 ){ }}
+            已禁用
+            {{# } else { }}
+            已启用
+            {{# } }}
         </script>
 
         <script>
@@ -45,35 +66,41 @@
                 var table = layui.table, $ = layui.jquery;
 
                 var tableIns = table.render({
-                    elem: '#orgTable',
+                    elem: '#userTable',
                     height: 400,
-                    url: ysdrzp + '/orgInfo/list',
+                    url: ysdrzp + '/user/list',
                     method: 'post',
                     contentType: 'application/json',
                     page: true,
                     cols: [[
                         {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
-                        {field: 'orgId', title: '机构ID', width:120},
-                        {field: 'orgName', title: '机构名称', width:200},
-                        {field: 'updateTime', title: '操作时间', width: 200, templet:'#updatedTimeTpl'},
-                        {field: 'updateUserName',title: '操作人', width: 150},
-                        {fixed: 'right', align:'center', toolbar: '#barDemo'}
+                        {field: 'mobilePhone', title: '手机号', width:180},
+                        {field: 'userName', title: '用户名称', width:180},
+                        {field: 'orgName', title: '机构所属', width:180},
+                        {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
+                        {field: 'miscDesc', title: '备注', width:180},
+                        {field: 'disabled', title: '状态', width:120, templet:'#disabledTpl'},
+                        {fixed: 'right', align:'center', toolbar: '#singleOperBar'}
                     ]],
                     limit: 10,
                     limits:[5,10,20,50],
                     even: true,
-                    text: '暂无数据',
-                    toolbar: true
+                    text: '暂无数据'
+                    ,toolbar: true
                 });
 
                 $('.layui-btn').click(function () {
-                    var orgName = $('#orgName').val()
+                    var userName = $('#userName').val();
+                    var mobilePhone = $('#mobilePhone').val();
+                    var orgId = $('#orgId').val();
                     tableIns.reload({
-                        url: ysdrzp + '/orgInfo/list',
+                        url: ysdrzp + '/user/list',
                         methods:"post",
                         limit: 10,
                         where: {
-                            orgName : orgName
+                            userName : userName,
+                            mobilePhone: mobilePhone,
+                            orgId: orgId
                         },
                         page: {
                             curr: 1

@@ -205,7 +205,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="getList" parameterType="com.ysdrzp.oa.vo.OrgSearchVo" resultMap="BaseResultMap">
+  <select id="getList" parameterType="com.ysdrzp.oa.vo.OrgSearchVO" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sys_org_info

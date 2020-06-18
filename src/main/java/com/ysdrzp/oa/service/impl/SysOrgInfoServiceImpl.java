@@ -7,7 +7,7 @@ import com.ysdrzp.oa.dao.IBaseMapper;
 import com.ysdrzp.oa.dao.SysOrgInfoMapper;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
-import com.ysdrzp.oa.vo.OrgSearchVo;
+import com.ysdrzp.oa.vo.OrgSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +25,9 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
     }
 
     @Override
-    public YSDRZPResult getList(OrgSearchVo orgSearchVo) {
-        PageHelper.startPage(orgSearchVo.getPage(), orgSearchVo.getLimit());
-        List<SysOrgInfo> list = sysOrgInfoMapper.getList(orgSearchVo);
+    public YSDRZPResult getList(OrgSearchVO orgSearchVO) {
+        PageHelper.startPage(orgSearchVO.getPage(), orgSearchVO.getLimit());
+        List<SysOrgInfo> list = sysOrgInfoMapper.getList(orgSearchVO);
         PageInfo<SysOrgInfo> pageInfo = new PageInfo<>(list);
 
         YSDRZPResult result = new YSDRZPResult();

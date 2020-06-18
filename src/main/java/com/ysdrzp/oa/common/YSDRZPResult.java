@@ -37,10 +37,20 @@ public class YSDRZPResult implements Serializable {
 		result.setData(list);;
 		return result;
 	}
+
 	public static YSDRZPResult ok(String msg){
 		YSDRZPResult result = new YSDRZPResult();
 		result.setCode(0);
 		result.setMsg(msg);
+		return result;
+	}
+
+	public static YSDRZPResult ok(String msg, Long count, Object list){
+		YSDRZPResult result = new YSDRZPResult();
+		result.setCode(0);
+		result.setMsg(msg);
+		result.setCount(count);
+		result.setData(list);
 		return result;
 	}
 	

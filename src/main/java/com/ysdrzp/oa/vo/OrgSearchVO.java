@@ -1,6 +1,6 @@
 package com.ysdrzp.oa.vo;
 
-public class OrgSearchVo {
+public class OrgSearchVO {
 
     private Integer page;
 

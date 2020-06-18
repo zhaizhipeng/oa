@@ -41,11 +41,11 @@
         </script>
 
         <script type="text/html" id="disabledTpl">
-                {{# if(d.disabled == 0 ){ }}
-                已禁用
-                {{# } else { }}
-                已启用
-                {{# } }}
+            {{# if(d.disabled == 0 ){ }}
+            已禁用
+            {{# } else { }}
+            已启用
+            {{# } }}
         </script>
 
         <script>

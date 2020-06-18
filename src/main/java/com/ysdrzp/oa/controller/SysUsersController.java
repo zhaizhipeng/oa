@@ -22,14 +22,14 @@ public class SysUsersController {
 
     /**
      * 获取机构列表
-     * @param usersSearchVo
+     * @param usersSearchVO
      * @return
      */
     @PostMapping("list")
     @ResponseBody
-    public YSDRZPResult list(@RequestBody UsersSearchVO usersSearchVo){
+    public YSDRZPResult list(@RequestBody UsersSearchVO usersSearchVO){
 
-        YSDRZPResult result = sysUsersService.getList(usersSearchVo);
+        YSDRZPResult result = sysUsersService.getList(usersSearchVO);
         return result;
     }
 

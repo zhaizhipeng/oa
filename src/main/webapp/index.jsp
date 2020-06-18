@@ -16,7 +16,7 @@
             <div class="layui-header">
                 <div class="layui-logo">云上的日子</div>
                 <ul class="layui-nav layui-layout-left">
-                    <li class="layui-nav-item"><a href="javascript:void(0)">控制台</a></li>
+                    <li class="layui-nav-item"><a href="javascript:void(0)"><i class="layui-icon-console"></i>控制台</a></li>
                 </ul>
                 <ul class="layui-nav layui-layout-right">
                     <li class="layui-nav-item">
@@ -40,7 +40,7 @@
                                     <a data-url="${ysdrzp}/application/sys/org/org_list.jsp" data-id="1111" data-title="机构管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;&nbsp;机构管理</a>
                                 </dd>
                                 <dd>
-                                    <a data-url="${ysdrzp}/application/sys/user/user_list.jsp" data-id="2222" data-title="用户管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;&nbsp;用户管理</a>
+                                    <a data-url="${ysdrzp}/application/sys/user/user_list.jsp" data-id="2222" data-title="用户管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;&nbsp;用户管理</a>
                                 </dd>
                             </dl>
                         </li>

@@ -30,14 +30,22 @@
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
-        <script type="text/html" id="barDemo">
+        <script type="text/html" id="singleOperBar">
+            {{# if(d.disabled == 0 ){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="check">启用</a>
+            {{# } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">禁用</a>
+            {{# } }}
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
 
-            <!-- 这里同样支持 laytpl 语法，如： -->
-            {{#  if(d.auth > 2){ }}
-            <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
-            {{#  } }}
+        <script type="text/html" id="disabledTpl">
+                {{# if(d.disabled == 0 ){ }}
+                已禁用
+                {{# } else { }}
+                已启用
+                {{# } }}
         </script>
 
         <script>
@@ -53,17 +61,19 @@
                     page: true,
                     cols: [[
                         {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'},
-                        {field: 'orgId', title: '机构ID', width:120},
-                        {field: 'orgName', title: '机构名称', width:200},
-                        {field: 'updateTime', title: '操作时间', width: 200, templet:'#updatedTimeTpl'},
-                        {field: 'updateUserName',title: '操作人', width: 150},
-                        {fixed: 'right', align:'center', toolbar: '#barDemo'}
+                        {field: 'orgId', title: '机构ID', width:100},
+                        {field: 'orgName', title: '机构名称', width:180},
+                        {field: 'miscDesc', title: '备注', width:180},
+                        {field: 'updateTime', title: '操作时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss") }}</div>'},
+                        {field: 'updateOperName',title: '操作人', width: 100},
+                        {field: 'disabled', title: '状态', width:100, templet:'#disabledTpl'},
+                        {fixed: 'right', align:'center', toolbar: '#singleOperBar'}
                     ]],
                     limit: 10,
                     limits:[5,10,20,50],
                     even: true,
-                    text: '暂无数据',
-                    toolbar: true
+                    text: '暂无数据'
+                    ,toolbar: true
                 });
 
                 $('.layui-btn').click(function () {

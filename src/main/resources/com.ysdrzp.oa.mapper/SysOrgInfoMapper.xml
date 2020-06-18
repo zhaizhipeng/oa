@@ -208,7 +208,7 @@
   <select id="getList" parameterType="com.ysdrzp.oa.vo.OrgSearchVo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from org_info
+    from sys_org_info
     <where>
       <if test="orgName != null and orgName != ''">
         and org_name = #{orgName}

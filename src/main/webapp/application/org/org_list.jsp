@@ -11,14 +11,15 @@
 
     <body class="childrenBody">
 
-        <form class="layui-form">
+        <form class="layui-form layui-form-pane">
             <blockquote class="layui-elem-quote quoteBox">
                 <form class="layui-form">
                     <div class="layui-inline">
+                        <label class="layui-form-label">机构名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input searchVal" name="orgName" placeholder="请输入机构名称" />
+                            <input type="text" class="layui-input" id = "orgName" name="orgName" placeholder="请输入机构名称" />
                         </div>
-                        <a class="layui-btn search_btn" data-type="search">搜索</a>
+                        <button type="button" id = "reload-btn" class="layui-btn layui-inline"  >查询</button>
                     </div>
                 </form>
             </blockquote>
@@ -29,9 +30,19 @@
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+            <!-- 这里同样支持 laytpl 语法，如： -->
+            {{#  if(d.auth > 2){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+            {{#  } }}
+        </script>
+
         <script>
-            layui.use(['table','jquery'], function(){
-                var table = layui.table, $ = layui.jquery;
+            layui.use(['table','jquery','form'], function(){
+                var table = layui.table, $ = layui.jquery, form = layui.form;
 
                 var tableIns = table.render({
                     elem: '#orgTable'
@@ -47,27 +58,30 @@
                         ,{field: 'fatherId', title: '父机构ID', width: 200}
                         ,{field: 'createUserName',title: '创建人', width: 200}
                         ,{field: 'updateUserName',title: '更新人'}
+                        ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
                     ]]
                     ,limit: 10
                     ,limits:[5,10,20,50,100]
                     ,even: true
                     ,text: '暂无数据'
+                    ,toolbar: true
                 });
 
-                active = {
-                    search: function(){
-                        var orgName = $("#orgName");
-                        tableIns.reload('orgTable',{
-                            page: {
-                                curr: 1
-                            },
-                            where: {
-                                orgName: orgName.val()
-                            }
-                        })
-                    }
-                };
-
+                $('.layui-btn').click(function () {
+                    var orgName = $('#orgName').val()
+                    table.reload('orgTable', {
+                        url: ysdrzp + '/orgInfo/list'
+                        ,methods:"post"
+                        ,limit: 10
+                        ,where: {
+                            orgName : orgName
+                        }
+                        ,page: {
+                            curr: 1
+                        }
+                        ,text: '暂无数据'
+                    });
+                })
             });
         </script>
 

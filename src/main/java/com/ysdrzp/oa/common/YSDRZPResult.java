@@ -1,5 +1,6 @@
 package com.ysdrzp.oa.common;
 
+import com.ysdrzp.oa.constant.YSDRZPConstant;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,41 +14,47 @@ public class YSDRZPResult implements Serializable {
 	private Object data;
 	
 	public YSDRZPResult() {
-		super();
 	}
 
 	public YSDRZPResult(Integer code) {
-		super();
 		this.code = code;
 	}
 
 	public YSDRZPResult(Integer code, String msg) {
-		super();
 		this.code = code;
 		this.msg = msg;
 	}
 
 	public static YSDRZPResult ok(){
-		return new YSDRZPResult(0);
+		return new YSDRZPResult(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
 	}
 	
 	public static YSDRZPResult ok(Object list){
 		YSDRZPResult result = new YSDRZPResult();
-		result.setCode(0);
+		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
 		result.setData(list);;
 		return result;
 	}
 
 	public static YSDRZPResult ok(String msg){
 		YSDRZPResult result = new YSDRZPResult();
-		result.setCode(0);
+		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
 		result.setMsg(msg);
+		return result;
+	}
+
+	public static YSDRZPResult ok(Long count, Object list){
+		YSDRZPResult result = new YSDRZPResult();
+		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
+		result.setMsg(YSDRZPConstant.RETURN_SUCCESS_MSG);
+		result.setCount(count);
+		result.setData(list);
 		return result;
 	}
 
 	public static YSDRZPResult ok(String msg, Long count, Object list){
 		YSDRZPResult result = new YSDRZPResult();
-		result.setCode(0);
+		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
 		result.setMsg(msg);
 		result.setCount(count);
 		result.setData(list);

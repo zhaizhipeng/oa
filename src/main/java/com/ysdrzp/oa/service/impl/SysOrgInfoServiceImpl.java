@@ -29,12 +29,6 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
         PageHelper.startPage(orgSearchVO.getPage(), orgSearchVO.getLimit());
         List<SysOrgInfo> list = sysOrgInfoMapper.getList(orgSearchVO);
         PageInfo<SysOrgInfo> pageInfo = new PageInfo<>(list);
-
-        YSDRZPResult result = new YSDRZPResult();
-        result.setCode(0);
-        result.setMsg("ok");
-        result.setCount(pageInfo.getTotal());
-        result.setData(pageInfo.getList());
-        return result;
+        return YSDRZPResult.ok("ok", pageInfo.getTotal(), list);
     }
 }

@@ -145,7 +145,7 @@
 
                     /**启用*/
                     if(layEvent === 'enable'){
-                        layer.confirm('确认启用么',{icon : 1, skin: 'layui-layer-lan'}, function(index){
+                        layer.confirm('确认启用么',{icon : 1, skin:'layui-layer-molv'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/enable?' + 'id=' + obj.data.id,
@@ -161,7 +161,7 @@
 
                     /**禁用*/
                     if(layEvent === 'disable'){
-                        layer.confirm('确认禁用么', {icon : 0, skin: 'layui-layer-lan'}, function(index){
+                        layer.confirm('确认禁用么', {icon : 0, skin: 'layui-layer-molv'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/disable?' + 'id=' + obj.data.id,
@@ -177,7 +177,7 @@
 
                     /**删除*/
                     if(layEvent === 'del'){
-                        layer.confirm('确认删除么', {icon : 2, skin: 'layui-layer-lan'}, function(index){
+                        layer.confirm('确认删除么', {icon : 2, skin: 'layui-layer-molv'}, function(index){
                             /**
                              * 删除对应行（tr）的DOM结构，并更新缓存
                              */
@@ -188,7 +188,7 @@
                                 url:'${ysdrzp}/user/delete?' + 'id=' + obj.data.id,
                                 success:function(data){
                                     var msg = data.msg;
-                                    layer.msg(msg, {icon: 0, time : 2000}, function(){
+                                    layer.msg(msg, {time : 2000}, function(){
                                         window.location.reload();
                                     });
                                 }
@@ -210,7 +210,7 @@
                     /**密码重置*/
                     if(layEvent === 'pwd-reset'){
 
-                        layer.confirm('确定重置密码么', function(index){
+                        layer.confirm('确定重置密码么', {icon : 2, skin: 'layui-layer-molv'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/pwdReset?' + 'id=' + obj.data.id,

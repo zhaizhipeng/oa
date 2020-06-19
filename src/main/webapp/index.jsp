@@ -149,8 +149,8 @@
                 });
 
                 function computeFrameWH() {
-                    var h = $(window).height() -41- 10 - 60 -10-44 -10;
-                    $("iframe").css("height", h+"px");
+                    var h = $(window).height() - 200;
+                    $("iframe").css("height", h +"px");
                 };
 
                 $(window).resize(function () {

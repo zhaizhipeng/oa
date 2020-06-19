@@ -11,37 +11,33 @@
 
     <body class="childrenBody">
 
-        <form class="layui-form layui-form-pane">
-            <blockquote class="layui-elem-quote quoteBox">
-                <form class="layui-form">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">用户名称</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id = "userName" name="userName"/>
-                        </div>
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form layui-form-pane">
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id = "userName" name="userName"/>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">手机号</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id = "mobilePhone" name="mobilePhone"/>
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id = "mobilePhone" name="mobilePhone"/>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">机构所属</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id = "orgName" name="orgName"/>
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">机构所属</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id = "orgName" name="orgName"/>
                     </div>
+                </div>
 
-                    <button type="button" id = "reload" class="layui-btn layui-inline">查询</button>
-                    <button type="button" id = "new-user" class="layui-btn layui-inline"><i class="layui-icon layui-icon-add-1"></i>新增用户</button>
-                </form>
-            </blockquote>
+                <button type="button" id = "reload" class="layui-btn layui-inline">查询</button>
+                <button type="button" id = "new-user" class="layui-btn layui-btn-normal layui-inline"><i class="layui-icon layui-icon-add-1"></i>添加用户</button>
+            </form>
+        </blockquote>
 
-
-            <table id="userTable" lay-filter="user-list"></table>
-
-        </form>
+        <table id="userTable" lay-filter="user-list"></table>
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
@@ -64,7 +60,7 @@
         </script>
 
         <script>
-            layui.use(['table','jquery'], function(){
+            layui.use(['table','jquery', 'layer'], function(){
                 var table = layui.table, $ = layui.jquery, layer = layui.layer;
 
                 var tableIns = table.render({
@@ -78,7 +74,7 @@
                         /*{field: 'id', title: 'ID', width:100, sort: true},*/
                         {field: 'mobilePhone', title: '手机号', width:150},
                         {field: 'userName', title: '用户名', width:150},
-                        {field: 'orgName', title: '机构所属名称', width:150},
+                        {field: 'orgName', title: '机构所属', width:150},
                         {field: 'pwdValidDate', title: '密码有效日期', width: 180, templet:'<div>{{ layui.util.toDateString(d.pwdValidDate, "yyyy-MM-dd") }}</div>'},
                         {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
                         {field: 'miscDesc', title: '备注', width:180},

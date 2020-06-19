@@ -37,7 +37,7 @@
             </form>
         </blockquote>
 
-        <table id="userTable" lay-filter="user-list"></table>
+        <table id="userTable" class="layui-table-main" lay-filter="user-list"></table>
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
@@ -65,27 +65,31 @@
 
                 var tableIns = table.render({
                     elem: '#userTable',
-                    height: 400,
+                    height: '600',
                     url: ysdrzp + '/user/list',
                     method: 'post',
                     contentType: 'application/json',
                     page: true,
                     cols: [[
-                        /*{field: 'id', title: 'ID', width:100, sort: true},*/
-                        {field: 'mobilePhone', title: '手机号', width:150},
-                        {field: 'userName', title: '用户名', width:150},
-                        {field: 'orgName', title: '机构所属', width:150},
+                        {field: 'mobilePhone', title: '手机号', width:180},
+                        {field: 'userName', title: '用户名', width:180},
+                        {field: 'orgName', title: '机构所属', width:180},
                         {field: 'pwdValidDate', title: '密码有效日期', width: 180, templet:'<div>{{ layui.util.toDateString(d.pwdValidDate, "yyyy-MM-dd") }}</div>'},
                         {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
-                        {field: 'miscDesc', title: '备注', width:180},
-                        {field: 'disabled', title: '状态', width:120, templet:'#disabledTpl', fixed: 'right'},
-                        {align: 'center', toolbar: '#singleOperBar', width: 200, fixed: 'right'}
+                        {field: 'miscDesc', title: '备注', width:250},
+                        {field: 'disabled', title: '状态', width:180, templet:'#disabledTpl', fixed: 'right'},
+                        {title: '操作', align: 'center', toolbar: '#singleOperBar', fixed: 'right'}
                     ]],
                     limit: 10,
                     limits:[5,10,20,50],
                     even: true,
-                    text: '暂无数据'
-                    ,toolbar: true
+                    text: '暂无数据',
+                    toolbar: true,
+                    done : function(res, curr, count){
+                        if (res.count == 0) {
+                            $(".layui-table-main").html('<div class="layui-none">暂无数据哦</div>');
+                        }
+                    }
                 });
 
                 /**
@@ -141,13 +145,13 @@
 
                     /**启用*/
                     if(layEvent === 'enable'){
-                        layer.confirm('真的启用么', function(index){
+                        layer.confirm('确认启用么',{icon : 1, skin: 'layui-layer-lan'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/enable?' + 'id=' + obj.data.id,
                                 success:function(data){
                                     var msg = data.msg;
-                                    layer.msg(msg, {time:2000}, function(){
+                                    layer.msg(msg, {time : 2000}, function(){
                                         window.location.reload();
                                     });
                                 }
@@ -157,13 +161,13 @@
 
                     /**禁用*/
                     if(layEvent === 'disable'){
-                        layer.confirm('真的禁用么', function(index){
+                        layer.confirm('确认禁用么', {icon : 0, skin: 'layui-layer-lan'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/disable?' + 'id=' + obj.data.id,
                                 success:function(data){
                                     var msg = data.msg;
-                                    layer.msg(msg, {time:2000}, function(){
+                                    layer.msg(msg, {time : 2000}, function(){
                                         window.location.reload();
                                     });
                                 }
@@ -173,7 +177,7 @@
 
                     /**删除*/
                     if(layEvent === 'del'){
-                        layer.confirm('真的删除行么', function(index){
+                        layer.confirm('确认删除么', {icon : 2, skin: 'layui-layer-lan'}, function(index){
                             /**
                              * 删除对应行（tr）的DOM结构，并更新缓存
                              */
@@ -184,7 +188,7 @@
                                 url:'${ysdrzp}/user/delete?' + 'id=' + obj.data.id,
                                 success:function(data){
                                     var msg = data.msg;
-                                    layer.msg(msg, {time:2000}, function(){
+                                    layer.msg(msg, {icon: 0, time : 2000}, function(){
                                         window.location.reload();
                                     });
                                 }

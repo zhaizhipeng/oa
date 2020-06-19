@@ -10,40 +10,40 @@
 </head>
 <body class="childrenBody">
 
-	<form class="layui-form">
-		<div class="layui-form-item">
-			<label class="layui-form-label">手机号</label>
-			<div class="layui-input-block">
-				<input type="text" name="mobilePhone" required  lay-verify="phone" class="layui-input">
+	<blockquote class="layui-elem-quote quoteBox">
+		<form class="layui-form layui-form-pane">
+			<div class="layui-form-item">
+				<label class="layui-form-label">手机号</label>
+				<div class="layui-input-block">
+					<input type="text" name="mobilePhone" required  lay-verify="phone" class="layui-input">
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">用户名</label>
-			<div class="layui-input-inline">
-				<input type="text" name="userName" required lay-verify="required" class="layui-input">
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="userName" required lay-verify="required" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">请输入真实姓名</div>
 			</div>
-			<div class="layui-form-mid layui-word-aux">请输入真实姓名</div>
-		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">备注内容</label>
-			<div class="layui-input-block">
-				<textarea name="miscDesc" placeholder="请输入内容" class="layui-textarea"></textarea>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">备注内容</label>
+				<div class="layui-input-block">
+					<textarea name="miscDesc" class="layui-textarea"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">所属机构</label>
-			<div class="layui-input-inline">
-				<input type="text" name="orgName" value="地表最强" class="layui-input">
+			<div class="layui-form-item">
+				<label class="layui-form-label">机构所属</label>
+				<div class="layui-input-inline">
+					<input type="text" name="orgName" required lay-verify="required" value="地表最强" class="layui-input">
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
+			<div class="layui-form-item">
 				<button class="layui-btn" lay-submit lay-filter="confirm">添加</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			</div>
-		</div>
-	</form>
+		</form>
+	</blockquote>
 
 	<script type="text/javascript" src= "${ysdrzp}/layui/layui.js"></script>
 

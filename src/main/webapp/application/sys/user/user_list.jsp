@@ -45,7 +45,7 @@
             {{# if(d.disabled == 0 ){ }}
             <a class="layui-btn layui-btn-xs" lay-event="enable">启用</a>
             {{# } else { }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable">禁用</a>
+            <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">禁用</a>
             {{# } }}
             <a class="layui-btn layui-btn-warm layui-btn-xs " lay-event="pwd-reset">密码重置</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -125,7 +125,7 @@
                         area: ['560px', '480px'],
                         content: ysdrzp + '/application/sys/user/add_user.jsp',
                         cancel: function(index, layero){
-                            if(confirm('确定取消新增用户么')){
+                            if(confirm('确认取消添加用户么')){
                                 layer.close(index)
                             }
                             return false;
@@ -198,7 +198,6 @@
 
                     /**编辑*/
                     /*if(layEvent === 'edit'){
-
                         /!**
                          * 同步更新缓存对应的值
                          *!/
@@ -210,7 +209,7 @@
                     /**密码重置*/
                     if(layEvent === 'pwd-reset'){
 
-                        layer.confirm('确定重置密码么', {icon : 2, skin: 'layui-layer-molv'}, function(index){
+                        layer.confirm('确认重置密码么', {icon : 0, skin: 'layui-layer-molv'}, function(index){
                             $.ajax({
                                 type:'get',
                                 url:'${ysdrzp}/user/pwdReset?' + 'id=' + obj.data.id,

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>新增用户</title>
+	<title>添加用户</title>
 	<link rel="stylesheet" href="${ysdrzp}/layui/css/layui.css" media="all" />
 	<script>var ysdrzp = "${ysdrzp}";</script>
 </head>
@@ -38,8 +38,8 @@
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="confirm">立即提交</button>
-				&nbsp;&nbsp;
+				<button class="layui-btn" lay-submit lay-filter="confirm">添加</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			</div>
 		</div>

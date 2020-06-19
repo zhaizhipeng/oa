@@ -22,7 +22,7 @@
                     <li class="layui-nav-item">
                         <a href=""><img src="image/head.jpg" class="layui-nav-img">向往的生活</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:void(0)">消息未读&nbsp;<i class="layui-icon layui-icon-notice"></i></a></dd>
+                            <dd><a href="javascript:void(0)">消息&nbsp;<i class="layui-icon layui-icon-notice"></i></a></dd>
                             <dd><a href="javascript:void(0)"><i class="layui-icon layui-icon-logout"></i>&nbsp;退出</a></dd>
                         </dl>
                     </li>

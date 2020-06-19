@@ -196,16 +196,6 @@
                         });
                     }
 
-                    /**编辑*/
-                    /*if(layEvent === 'edit'){
-                        /!**
-                         * 同步更新缓存对应的值
-                         *!/
-                        obj.update({
-                            status: 0
-                        });
-                    }*/
-
                     /**密码重置*/
                     if(layEvent === 'pwd-reset'){
 

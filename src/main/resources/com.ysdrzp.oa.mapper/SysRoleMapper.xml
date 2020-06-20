@@ -29,6 +29,25 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="getlist" parameterType="com.ysdrzp.oa.vo.RoleSearchVO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    <where>
+      status = 1
+      <if test="roleCnName != null and roleCnName != ''">
+        and role_cn_name = #{roleCnName}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectRoleIsExist" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where role_cn_name = #{roleCnName} and status = 1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_role
     where id = #{id,jdbcType=BIGINT}

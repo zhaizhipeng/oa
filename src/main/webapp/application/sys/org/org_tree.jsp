@@ -28,9 +28,9 @@
             <fieldset class="layui-elem-field layui-field-title">
                 <legend>所有机构</legend>
             </fieldset>
-            <button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" lay-demo="addDept"><i class="layui-icon">&#xe654;</i>添加机构</button>
-            <button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" lay-demo="gain">获取选中节点</button>
-    
+
+            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" lay-event="addOrg"><i class="layui-icon">&#xe654;</i>添加机构</button>
+
             <div id="org_tree"></div>
         </div>
     
@@ -46,8 +46,13 @@
         <script src="${ysdrzp}/layui/layui.js"></script>
 
         <script>
-            layui.use(['tree', 'jquery'], function() {
-                var tree = layui.tree, $ = layui.jquery;
+            layui.use(['tree', 'jquery', 'util', 'layer'], function() {
+                var tree = layui.tree,
+                    $ = layui.jquery,
+                    util = layui.util,
+                    layer = layui.layer;
+
+                var checkId = null;
                 tree.render({
                     elem: '#org_tree',
                     data: getData(),
@@ -55,9 +60,9 @@
                     onlyIconControl: true,
                     edit: true,
                     click: function (obj) {
-                        var id = obj.data.id;
+                        checkId = obj.data.id;
                         /** 获取机构详情 */
-                        $("#org_home").load("${ysdrzp}/org/detail?id="+id);
+                        $("#org_home").load("${ysdrzp}/org/detail?id="+checkId);
                     },
                     operate: function(obj){
 
@@ -100,6 +105,26 @@
                                         tree.reload('treeId', {data: getData()});
                                     });
                                 }
+                            });
+                        }
+                    }
+                });
+
+                util.event('lay-event', {
+                    addOrg: function(){
+                        if (checkId == null){
+                            layer.msg("请选中一个父机构");
+                        }
+
+                        if (checkId != null){
+                            $.get('${ysdrzp}/org/getAdd?id=' + checkId, function(data) {
+                                layer.open({
+                                    type: 1,
+                                    title: '添加机构',
+                                    area: ['520px'],
+                                    content: data
+                                });
+                                return false;
                             });
                         }
                     }

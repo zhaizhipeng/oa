@@ -2,6 +2,8 @@ package com.ysdrzp.oa.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.dao.IBaseMapper;
@@ -9,6 +11,7 @@ import com.ysdrzp.oa.dao.SysOrgInfoMapper;
 import com.ysdrzp.oa.dto.result.OrgTreeDTO;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
+import com.ysdrzp.oa.vo.OrgSaveVO;
 import com.ysdrzp.oa.vo.OrgUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,12 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
     }
 
     @Override
+    public SysOrgInfo getOrgInfo(Long id) {
+        SysOrgInfo sysOrgInfo = sysOrgInfoMapper.selectByPrimaryKey(id);
+        return sysOrgInfo;
+    }
+
+    @Override
     public SysOrgInfo selectByOrgName(String orgName) {
         return sysOrgInfoMapper.selectByOrgName(orgName);
     }
@@ -36,7 +45,6 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
     @Override
     public List<HashMap<String, Object>> getOrgTree(Long id) {
         List<OrgTreeDTO> orgTreeList = sysOrgInfoMapper.getOrgTree(id);
-        System.out.println(JSONUtil.toJsonStr(orgTreeList));
 
         List<HashMap<String, Object>> result = new ArrayList<>();
         result = buildOrgTree(orgTreeList, result);
@@ -104,6 +112,48 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
         }
         sysOrgInfoMapper.deleteByPrimaryKey(id);
         return YSDRZPResult.ok("删除成功");
+    }
+
+    @Override
+    public YSDRZPResult saveOrgInfo(OrgSaveVO orgSaveVO) {
+
+        if (orgSaveVO.getFatherId() == null){
+            return YSDRZPResult.ok("没有选择父机构");
+        }
+
+        if (StrUtil.isBlank(orgSaveVO.getOrgName())){
+            return YSDRZPResult.ok("组织机构名称不能为空");
+        }
+
+        SysOrgInfo sysFatherOrgInfo = sysOrgInfoMapper.selectByPrimaryKey(orgSaveVO.getFatherId());
+        if (sysFatherOrgInfo == null){
+            return YSDRZPResult.ok("父机构不存在");
+        }
+
+        SysOrgInfo sysOrgInfo = new SysOrgInfo();
+        sysOrgInfo.setFatherOrgId(sysFatherOrgInfo.getOrgId());
+        sysOrgInfo.setFatherOrgName(sysFatherOrgInfo.getOrgName());
+        sysOrgInfo.setOrgId(geneOrgId(sysFatherOrgInfo.getOrgId()));
+        sysOrgInfo.setOrgName(orgSaveVO.getOrgName());
+        sysOrgInfo.setSubName(orgSaveVO.getSubName());
+        sysOrgInfo.setMiscDesc(orgSaveVO.getMiscDesc());
+        sysOrgInfo.setCreateOperId(-1l);
+        sysOrgInfo.setCreateTime(DateUtil.date());
+        sysOrgInfo.setCreateOperName("管理员");
+        sysOrgInfo.setUpdateOperId(-1l);
+        sysOrgInfo.setUpdateTime(DateUtil.date());
+        sysOrgInfo.setUpdateOperName("管理员");
+        sysOrgInfoMapper.insertSelective(sysOrgInfo);
+        return YSDRZPResult.ok("添加成功");
+    }
+
+    /**
+     * 生成机构Id
+     * @param fatherOrgId
+     * @return
+     */
+    private String geneOrgId(String fatherOrgId){
+        return fatherOrgId + (RandomUtil.randomInt(0, 9999));
     }
 
 }

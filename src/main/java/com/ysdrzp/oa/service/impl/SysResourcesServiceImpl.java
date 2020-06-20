@@ -87,6 +87,8 @@ public class SysResourcesServiceImpl extends BaseServiceImpl<SysResources> imple
         if (sysResources == null){
             return YSDRZPResult.ok("菜单资源不存在");
         }
+        sysResources.setResourcesName(resourcesUpdateVO.getResourcesName());
+        sysResources.setUrlType(resourcesUpdateVO.getUrlType());
         sysResources.setUpdateTime(DateUtil.date());
         sysResourcesMapper.updateByPrimaryKeySelective(sysResources);
         return YSDRZPResult.ok("更新成功");

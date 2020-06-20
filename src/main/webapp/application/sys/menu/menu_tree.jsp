@@ -80,7 +80,7 @@
                                 type:'post',
                                 url:'${ysdrzp}/menu/update',
                                 contentType:'application/json;charset=utf-8',
-                                data:JSON.stringify({id: data.id, menuName: data.title}),
+                                data:JSON.stringify({id: data.id, resourcesName: data.title}),
                                 dataType:'json',
                                 success:function(data){
                                     var msg = data.msg;

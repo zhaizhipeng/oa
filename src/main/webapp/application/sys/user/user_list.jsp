@@ -122,7 +122,7 @@
                         type: 2,
                         title: '添加用户',
                         shadeClose: true,
-                        area: ['555px', '435px'],
+                        area: ['625px', '440px'],
                         content: ysdrzp + '/application/sys/user/user_add.jsp',
                         cancel: function(index, layero){
                             if(confirm('确认不要添加用户么')){

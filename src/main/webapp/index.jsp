@@ -36,7 +36,7 @@
                             <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;基础资料</a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a data-url="${ysdrzp}/application/sys/org/org_list.jsp" data-id="1111" data-title="机构管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;&nbsp;机构管理</a>
+                                    <a data-url="${ysdrzp}/application/sys/org/org_tree.jsp" data-id="1111" data-title="机构管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;&nbsp;机构管理</a>
                                 </dd>
                                 <dd>
                                     <a data-url="${ysdrzp}/application/sys/user/user_list.jsp" data-id="2222" data-title="用户管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;&nbsp;用户管理</a>

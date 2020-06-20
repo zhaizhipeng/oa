@@ -1,8 +1,13 @@
 package com.ysdrzp.oa.service;
 
 import com.ysdrzp.oa.common.YSDRZPResult;
+import com.ysdrzp.oa.dto.result.OrgTreeDTO;
 import com.ysdrzp.oa.entity.SysOrgInfo;
-import com.ysdrzp.oa.vo.OrgSearchVO;
+import com.ysdrzp.oa.vo.OrgDetailUpdateVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 机构管理接口
@@ -10,16 +15,30 @@ import com.ysdrzp.oa.vo.OrgSearchVO;
 public interface ISysOrgInfoService extends IBaseService<SysOrgInfo>{
 
     /**
-     * 分页查询组织机构列表
-     * @param orgSearchVO
-     * @return
-     */
-    YSDRZPResult getList(OrgSearchVO orgSearchVO);
-
-    /**
      * 根据机构名称查询机构信息
      * @param orgName
      * @return
      */
     SysOrgInfo selectByOrgName(String orgName);
+
+    /**
+     * 获取组织机构树
+     * @return
+     * @param id
+     */
+    List<HashMap<String, Object>> getOrgTree(@Param("id") Long id);
+
+    /**
+     * 获取机构详情
+     * @param id
+     * @return
+     */
+    OrgTreeDTO getOrgDetail(Long id);
+
+    /**
+     * 更新机构信息
+     * @param orgDetailUpdateVO
+     * @return
+     */
+    YSDRZPResult updateOrgDetailInfo(OrgDetailUpdateVO orgDetailUpdateVO);
 }

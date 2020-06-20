@@ -13,6 +13,8 @@ public class SysOrgInfo {
 
     private String orgName;
 
+    private String subName;
+
     private String fatherOrgId;
 
     private String fatherOrgName;

@@ -50,7 +50,7 @@
                                     <a data-url="${ysdrzp}/application/sys/role/role_list.jsp" data-id="3333" data-title="角色管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-util"></i>&nbsp;&nbsp;角色管理</a>
                                 </dd>
                                 <dd>
-                                    <a data-url="${ysdrzp}/application/sys/org/org_list.jsp" data-id="4444" data-title="菜单管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-more"></i>&nbsp;&nbsp;菜单管理</a>
+                                    <a data-url="${ysdrzp}/application/sys/menu/menu_tree.jsp" data-id="4444" data-title="菜单管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-more"></i>&nbsp;&nbsp;菜单管理</a>
                                 </dd>
                                 <dd>
                                     <a data-url="${ysdrzp}/application/sys/org/org_list.jsp" data-id="5555" data-title="授权管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-auz"></i>&nbsp;&nbsp;授权管理</a>

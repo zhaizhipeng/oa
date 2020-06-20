@@ -2,6 +2,9 @@ package com.ysdrzp.oa.vo;
 
 import lombok.Data;
 
+/**
+ * 新建机构
+ */
 @Data
 public class OrgSaveVO {
 

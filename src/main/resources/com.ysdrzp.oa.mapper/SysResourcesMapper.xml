@@ -206,4 +206,89 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <select id="selectByResourcesName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_resources
+    where resources_name = #{resourcesName}
+  </select>
+
+  <!-- 资源树 -->
+  <resultMap type="com.ysdrzp.oa.dto.result.MenuTreeDTO" id="ResultMenuTree">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resourcesKey" jdbcType="VARCHAR" property="resourcesKey" />
+    <result column="resourcesName" jdbcType="VARCHAR" property="resourcesName" />
+    <collection property="children" ofType="com.ysdrzp.oa.dto.result.MenuTreeDTO">
+      <id column="id2" jdbcType="BIGINT" property="id" />
+      <result column="resourcesKey2" jdbcType="VARCHAR" property="resourcesKey" />
+      <result column="resourcesName2" jdbcType="VARCHAR" property="resourcesName" />
+      <collection property="children" ofType="com.ysdrzp.oa.dto.result.MenuTreeDTO">
+        <id column="id3" jdbcType="BIGINT" property="id" />
+        <result column="resourcesKey3" jdbcType="VARCHAR" property="resourcesKey" />
+        <result column="resourcesName3" jdbcType="VARCHAR" property="resourcesName" />
+      </collection>
+    </collection>
+  </resultMap>
+
+  <select id="getMenuTree" resultMap="ResultMenuTree">
+    SELECT
+      s1.id as id,
+      s1.resources_key as resourcesKey,
+      s1.resources_name as resourcesName,
+      s2.id as id2,
+      s2.resources_key as resourcesKey2,
+      s2.resources_name as resourcesName2,
+      s3.id as id3,
+      s3.resources_key as resourcesKey3,
+      s3.resources_name as resourcesName3
+    FROM
+        sys_resources s1
+    LEFT JOIN sys_resources s2 ON (s2.father_id = s1.id)
+    LEFT JOIN sys_resources s3 ON (s3.father_id = s2.id)
+    <where>
+      s1.id = 1
+      <if test="id != null">
+        and s1.id = #{id}
+      </if>
+    </where>
+
+  </select>
+
+  <!-- 资源详情 -->
+  <resultMap type="com.ysdrzp.oa.dto.result.MenuTreeDTO" id="menuDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resourcesKey" jdbcType="VARCHAR" property="resourcesKey" />
+    <result column="resourcesName" jdbcType="VARCHAR" property="resourcesName" />
+    <result column="urlType" jdbcType="VARCHAR" property="urlType" />
+    <collection property="parent" ofType="com.ysdrzp.oa.dto.result.MenuTreeDTO">
+      <id column="id2" jdbcType="BIGINT" property="id" />
+      <result column="resourcesKey2" jdbcType="VARCHAR" property="resourcesKey" />
+      <result column="resourcesName2" jdbcType="VARCHAR" property="resourcesName" />
+      <result column="urlType2" jdbcType="VARCHAR" property="urlType" />
+    </collection>
+  </resultMap>
+
+  <select id="selectResourcesDetail" resultMap="menuDetail">
+    SELECT
+      s1.id as id,
+      s1.resources_key as resourcesKey,
+      s1.resources_name as resourcesName,
+      s1.url_type as urlType,
+      s2.id as id2,
+      s2.resources_key as resourcesKey2,
+      s2.resources_name as resourcesName2,
+      s2.url_type as urlType2
+    FROM
+        sys_resources s1
+    LEFT JOIN sys_resources s2 ON (s1.father_id = s2.id)
+    WHERE s1.id = #{id}
+  </select>
+
+  <select id="selectByFatherId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_resources
+    where father_id = #{fatherId}
+  </select>
+
 </mapper>

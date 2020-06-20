@@ -11,7 +11,7 @@
 	<body class="childrenBody">
 
 		<blockquote class="layui-elem-quote quoteBox">
-			<form class="layui-form layui-form-pane">
+			<form class="layui-form layui-form-pane" lay-filter="menu-add-form">
 				<div class="layui-form-item">
 					<input type="hidden" name="fatherId" value="${fatherId}" />
 				</div>
@@ -30,7 +30,12 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">url类型</label>
 					<div class="layui-input-block">
-						<input type="text" name="urlType" class="layui-input" />
+						<select name="urlType" lay-verify="required">
+							<option value=""></option>
+							<option value="0">系统</option>
+							<option value="1">静态资源</option>
+							<option value="2">按钮</option>
+						</select>
 					</div>
 				</div>
 				<div class="layui-form-item layui-form-text">
@@ -49,6 +54,12 @@
 		<script>
 			layui.use(['form','jquery','layer'], function(){
 				var form = layui.form, $ = layui.jquery, layer = layui.layer;
+
+				/**
+				* 表单渲染
+				*/
+				form.render(null, 'menu-add-form');
+
 				form.on('submit(confirm)', function(data){
 					$.ajax({
 						type:'post',

@@ -21,7 +21,7 @@
             }
         </style>
     
-        <form class="layui-form menuDetailData">
+        <form class="layui-form menuDetailData" lay-filter="menu-edit-form">
             <div class="layui-form-item">
                 <input type="hidden" name="id" value="${menuDetail.id}" />
             </div>
@@ -46,7 +46,23 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">url类型</label>
                 <div class="layui-input-block">
-                    <input type="text" name="urlType" value="${menuDetail.urlType}" class="layui-input" />
+                    <select name="urlType" lay-verify="required">
+                        <c:if test="${menuDetail.urlType == '0'}">
+                            <option value="0" selected>系统</option>
+                            <option value="1">静态资源</option>
+                            <option value="2">按钮</option>
+                        </c:if>
+                        <c:if test="${menuDetail.urlType == '1'}">
+                            <option value="0">系统</option>
+                            <option value="1" selected>静态资源</option>
+                            <option value="2">按钮</option>
+                        </c:if>
+                        <c:if test="${menuDetail.urlType == '2'}">
+                            <option value="0">系统</option>
+                            <option value="1">静态资源</option>
+                            <option value="2" selected>按钮</option>
+                        </c:if>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -68,6 +84,11 @@
         <script inline="javascript">
             layui.use(['form','jquery', 'layer'], function () {
                 var form = layui.form, $ = layui.jquery, layer = layui.layer;
+                /**
+                * 表单渲染 select
+                */
+                form.render(null, 'menu-edit-form');
+
                 form.on('submit(update-detail)', function (data) {
                     $.ajax({
                         type:'post',

@@ -59,6 +59,16 @@
             {{# } }}
         </script>
 
+        <script type="text/html" id="genderTpl">
+            {{# if(d.gender == 0 ){ }}
+            保密
+            {{# } else if(d.gender == 1){ }}
+            男
+            {{# } else if(d.gender == 2){ }}
+            女
+            {{# } }}
+        </script>
+
         <script>
             layui.use(['table','jquery', 'layer'], function(){
                 var table = layui.table, $ = layui.jquery, layer = layui.layer;
@@ -74,6 +84,7 @@
                         {field: 'mobilePhone', title: '手机号', width:180},
                         {field: 'userName', title: '用户名', width:180},
                         {field: 'orgName', title: '机构所属', width:180},
+                        {field: 'gender', title: '性别', width:100, templet:'#genderTpl'},
                         {field: 'pwdValidDate', title: '密码有效日期', width: 180, templet:'<div>{{ layui.util.toDateString(d.pwdValidDate, "yyyy-MM-dd") }}</div>'},
                         {field: 'lastLoginDate', title: '上次登录时间', width: 180, templet:'<div>{{ layui.util.toDateString(d.lastLoginDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
                         {field: 'miscDesc', title: '备注', width:250},
@@ -122,7 +133,7 @@
                         type: 2,
                         title: '添加用户',
                         shadeClose: true,
-                        area: ['625px', '440px'],
+                        area: ['625px', '465px'],
                         content: ysdrzp + '/application/sys/user/user_add.jsp',
                         cancel: function(index, layero){
                             if(confirm('确认不要添加用户么')){

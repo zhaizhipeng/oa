@@ -11,6 +11,7 @@
     <result column="org_id" jdbcType="VARCHAR" property="orgId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="disabled" jdbcType="INTEGER" property="disabled" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate" />
     <result column="misc_desc" jdbcType="VARCHAR" property="miscDesc" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -41,6 +42,7 @@
         u.id,
         u.mobile_phone as mobilePhone,
         u.user_name as userName,
+        u.gender as gender,
         o.org_name as orgName,
         u.pwd_valid_date as pwdValidDate,
         u.last_login_date as lastLoginDate,
@@ -77,13 +79,13 @@
   <insert id="insert" parameterType="com.ysdrzp.oa.entity.SysUser">
     insert into sys_user (id, mobile_phone, password, 
       pwd_valid_date, mail, org_id, 
-      user_name, disabled, last_login_date, 
+      user_name, disabled, gender, last_login_date,
       misc_desc, status, create_time, 
       create_oper_id, create_oper_name, update_time, 
       update_oper_id, update_oper_name)
     values (#{id,jdbcType=BIGINT}, #{mobilePhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{pwdValidDate,jdbcType=DATE}, #{mail,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, #{lastLoginDate,jdbcType=TIMESTAMP}, 
+      #{userName,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{lastLoginDate,jdbcType=TIMESTAMP},
       #{miscDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createOperId,jdbcType=BIGINT}, #{createOperName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updateOperId,jdbcType=BIGINT}, #{updateOperName,jdbcType=VARCHAR})
@@ -115,6 +117,9 @@
       </if>
       <if test="disabled != null">
         disabled,
+      </if>
+      <if test="gender != null">
+        gender,
       </if>
       <if test="lastLoginDate != null">
         last_login_date,
@@ -168,6 +173,9 @@
       </if>
       <if test="disabled != null">
         #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
       </if>
       <if test="lastLoginDate != null">
         #{lastLoginDate,jdbcType=TIMESTAMP},
@@ -223,6 +231,9 @@
       <if test="disabled != null">
         disabled = #{disabled,jdbcType=INTEGER},
       </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
       <if test="lastLoginDate != null">
         last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
       </if>
@@ -263,6 +274,7 @@
       org_id = #{orgId,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       disabled = #{disabled,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
       last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
       misc_desc = #{miscDesc,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

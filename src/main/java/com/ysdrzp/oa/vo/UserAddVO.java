@@ -19,4 +19,9 @@ public class UserAddVO {
      * 备注
      */
     private String miscDesc;
+
+    /**
+     * 性别：0：保密、1：男、2：女
+     */
+    private Integer gender;
 }

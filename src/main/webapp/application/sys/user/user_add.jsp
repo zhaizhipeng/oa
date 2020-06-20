@@ -25,6 +25,14 @@
 				</div>
 				<div class="layui-form-mid layui-word-aux">请输入真实姓名</div>
 			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">性别</label>
+				<div class="layui-input-block">
+					<input type="radio" name="gender" value="0" title="保密">
+					<input type="radio" name="gender" value="1" title="男">
+					<input type="radio" name="gender" value="2" title="女" checked>
+				</div>
+			</div>
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">备注内容</label>
 				<div class="layui-input-block">

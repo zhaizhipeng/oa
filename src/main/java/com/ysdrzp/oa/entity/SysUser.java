@@ -21,6 +21,8 @@ public class SysUser {
 
     private String userName;
 
+    private Integer gender;
+
     private Integer disabled;
 
     private Date lastLoginDate;

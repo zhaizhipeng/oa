@@ -69,6 +69,7 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
         sysUser.setMiscDesc(userAddVO.getMiscDesc());
         sysUser.setPassword(MD5.create().digest(USER_INITIAL_PASSWORD).toString());
         sysUser.setPwdValidDate(DateUtil.nextMonth());
+        sysUser.setGender(userAddVO.getGender());
         sysUser.setOrgId("00");
         sysUser.setCreateOperId(-1l);
         sysUser.setCreateTime(DateUtil.date());

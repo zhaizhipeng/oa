@@ -23,6 +23,11 @@ public class SysUsersSearchDTO {
     private String userName;
 
     /**
+     * 性别
+     */
+    private Integer gender;
+
+    /**
      * 备注
      */
     private String miscDesc;

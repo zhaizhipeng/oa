@@ -38,9 +38,7 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<button class="layui-btn" lay-submit lay-filter="confirm">添加</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-fluid" lay-submit lay-filter="confirm">确认</button>
 			</div>
 		</form>
 	</blockquote>

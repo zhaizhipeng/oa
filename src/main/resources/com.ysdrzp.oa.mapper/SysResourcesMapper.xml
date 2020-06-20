@@ -259,12 +259,14 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="resourcesKey" jdbcType="VARCHAR" property="resourcesKey" />
     <result column="resourcesName" jdbcType="VARCHAR" property="resourcesName" />
-    <result column="urlType" jdbcType="VARCHAR" property="urlType" />
+    <result column="urlType" jdbcType="INTEGER" property="urlType" />
+    <result column="miscDesc" jdbcType="VARCHAR" property="miscDesc" />
     <collection property="parent" ofType="com.ysdrzp.oa.dto.result.MenuTreeDTO">
       <id column="id2" jdbcType="BIGINT" property="id" />
       <result column="resourcesKey2" jdbcType="VARCHAR" property="resourcesKey" />
       <result column="resourcesName2" jdbcType="VARCHAR" property="resourcesName" />
-      <result column="urlType2" jdbcType="VARCHAR" property="urlType" />
+      <result column="urlType2" jdbcType="INTEGER" property="urlType" />
+      <result column="miscDesc2" jdbcType="VARCHAR" property="miscDesc" />
     </collection>
   </resultMap>
 
@@ -274,10 +276,12 @@
       s1.resources_key as resourcesKey,
       s1.resources_name as resourcesName,
       s1.url_type as urlType,
+      s1.misc_desc as miscDesc,
       s2.id as id2,
       s2.resources_key as resourcesKey2,
       s2.resources_name as resourcesName2,
-      s2.url_type as urlType2
+      s2.url_type as urlType2,
+      s2.misc_desc as miscDesc2
     FROM
         sys_resources s1
     LEFT JOIN sys_resources s2 ON (s1.father_id = s2.id)

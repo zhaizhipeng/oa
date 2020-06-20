@@ -27,4 +27,9 @@ public class ResourcesUpdateVO {
      * url
      */
     private Integer urlType;
+
+    /**
+     * 资源描述
+     */
+    private String miscDesc;
 }

@@ -31,6 +31,11 @@ public class MenuTreeDTO {
     private Integer urlType;
 
     /**
+     * 资源描述
+     */
+    private String miscDesc;
+
+    /**
      * 上级菜单资源
      */
     private MenuTreeDTO parent;

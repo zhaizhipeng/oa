@@ -49,6 +49,12 @@
                     <input type="text" name="urlType" value="${menuDetail.urlType}" class="layui-input" />
                 </div>
             </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">资源描述</label>
+                <div class="layui-input-block">
+                    <textarea name="miscDesc" class="layui-textarea">${menuDetail.miscDesc}</textarea>
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">

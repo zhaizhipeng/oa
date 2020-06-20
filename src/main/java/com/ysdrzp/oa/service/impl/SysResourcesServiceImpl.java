@@ -89,6 +89,7 @@ public class SysResourcesServiceImpl extends BaseServiceImpl<SysResources> imple
         }
         sysResources.setResourcesName(resourcesUpdateVO.getResourcesName());
         sysResources.setUrlType(resourcesUpdateVO.getUrlType());
+        sysResources.setMiscDesc(resourcesUpdateVO.getMiscDesc());
         sysResources.setUpdateTime(DateUtil.date());
         sysResourcesMapper.updateByPrimaryKeySelective(sysResources);
         return YSDRZPResult.ok("更新成功");

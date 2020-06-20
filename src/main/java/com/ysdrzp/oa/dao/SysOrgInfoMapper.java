@@ -30,4 +30,11 @@ public interface SysOrgInfoMapper extends IBaseMapper<SysOrgInfo>{
      * @return
      */
     OrgTreeDTO selectOrgDetail(Long id);
+
+    /**
+     * 获取父机构下的所有子机构
+     * @param fatherOrgId
+     * @return
+     */
+    List<SysOrgInfo> selectByFatherOrgId(@Param("fatherOrgId") String fatherOrgId);
 }

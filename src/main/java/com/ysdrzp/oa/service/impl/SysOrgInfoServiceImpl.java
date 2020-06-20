@@ -9,7 +9,7 @@ import com.ysdrzp.oa.dao.SysOrgInfoMapper;
 import com.ysdrzp.oa.dto.result.OrgTreeDTO;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
-import com.ysdrzp.oa.vo.OrgDetailUpdateVO;
+import com.ysdrzp.oa.vo.OrgUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,17 +74,36 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
     }
 
     @Override
-    public YSDRZPResult updateOrgDetailInfo(OrgDetailUpdateVO orgDetailUpdateVO) {
+    public YSDRZPResult updateOrgInfo(OrgUpdateVO orgUpdateVO) {
 
-        SysOrgInfo sysOrgInfo = sysOrgInfoMapper.selectByPrimaryKey(orgDetailUpdateVO.getId());
+        SysOrgInfo sysOrgInfo = sysOrgInfoMapper.selectByPrimaryKey(orgUpdateVO.getId());
         if (sysOrgInfo == null){
             return YSDRZPResult.ok("机构不存在");
         }
-        sysOrgInfo.setOrgName(orgDetailUpdateVO.getOrgName());
-        sysOrgInfo.setSubName(orgDetailUpdateVO.getSubName());
+        sysOrgInfo.setOrgName(orgUpdateVO.getOrgName());
+        sysOrgInfo.setSubName(orgUpdateVO.getSubName());
         sysOrgInfo.setUpdateTime(DateUtil.date());
         sysOrgInfoMapper.updateByPrimaryKeySelective(sysOrgInfo);
         return YSDRZPResult.ok("更新成功");
+    }
+
+    @Override
+    public YSDRZPResult deleteOrgInfo(Long id) {
+        SysOrgInfo sysOrgInfo = sysOrgInfoMapper.selectByPrimaryKey(id);
+        if (sysOrgInfo == null){
+            return YSDRZPResult.ok("机构不存在");
+        }
+        if (sysOrgInfo.getOrgId().equals("00")){
+            return YSDRZPResult.ok("根节点不能删除");
+        }
+        List<SysOrgInfo> list = sysOrgInfoMapper.selectByFatherOrgId(sysOrgInfo.getOrgId());
+        if (CollectionUtil.isNotEmpty(list)){
+            for (SysOrgInfo sysOrgInfo1 : list){
+                deleteByPrimaryKey(sysOrgInfo1.getId());
+            }
+        }
+        sysOrgInfoMapper.deleteByPrimaryKey(id);
+        return YSDRZPResult.ok("删除成功");
     }
 
 }

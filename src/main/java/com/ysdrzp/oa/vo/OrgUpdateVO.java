@@ -6,7 +6,7 @@ import lombok.Data;
  * 更新机构详情
  */
 @Data
-public class OrgDetailUpdateVO {
+public class OrgUpdateVO {
 
     /**
      * 机构主键

@@ -3,7 +3,7 @@ package com.ysdrzp.oa.service;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.dto.result.OrgTreeDTO;
 import com.ysdrzp.oa.entity.SysOrgInfo;
-import com.ysdrzp.oa.vo.OrgDetailUpdateVO;
+import com.ysdrzp.oa.vo.OrgUpdateVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -37,8 +37,15 @@ public interface ISysOrgInfoService extends IBaseService<SysOrgInfo>{
 
     /**
      * 更新机构信息
-     * @param orgDetailUpdateVO
+     * @param orgUpdateVO
      * @return
      */
-    YSDRZPResult updateOrgDetailInfo(OrgDetailUpdateVO orgDetailUpdateVO);
+    YSDRZPResult updateOrgInfo(OrgUpdateVO orgUpdateVO);
+
+    /**
+     * 删除机构
+     * @param id
+     * @return
+     */
+    YSDRZPResult deleteOrgInfo(Long id);
 }

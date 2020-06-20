@@ -300,4 +300,11 @@
     WHERE s1.id = #{id}
   </select>
 
+  <select id="selectByFatherOrgId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_org_info
+    where father_org_id = #{fatherOrgId}
+  </select>
+
 </mapper>

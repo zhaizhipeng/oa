@@ -52,12 +52,56 @@
                     elem: '#org_tree',
                     data: getData(),
                     id: 'treeId',
-                    showCheckbox: true,
                     onlyIconControl: true,
-                    edit: ['add', 'update', 'del'],
+                    edit: true,
                     click: function (obj) {
                         var id = obj.data.id;
+                        /** 获取机构详情 */
                         $("#org_home").load("${ysdrzp}/org/detail?id="+id);
+                    },
+                    operate: function(obj){
+
+                        /** 得到当前节点的数据 */
+                        var data = obj.data;
+
+                        /** 得到操作类型 */
+                        var type = obj.type;
+
+                        /**
+                         * 修改节点
+                         */
+                        if(type === 'update'){
+                            $.ajax({
+                                type:'post',
+                                url:'${ysdrzp}/org/update',
+                                contentType:'application/json;charset=utf-8',
+                                data:JSON.stringify({id: data.id, orgName: data.title}),
+                                dataType:'json',
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        tree.reload('treeId', {data: getData()});
+                                    });
+                                }
+                            });
+                        }
+
+                        /** 删除节点 */
+                        if(type === 'del'){
+                            $.ajax({
+                                type:'post',
+                                url:'${ysdrzp}/org/delete',
+                                contentType:'application/json;charset=utf-8',
+                                data:JSON.stringify({id: data.id}),
+                                dataType:'json',
+                                success:function(data){
+                                    var msg = data.msg;
+                                    layer.msg(msg, {time:2000}, function(){
+                                        tree.reload('treeId', {data: getData()});
+                                    });
+                                }
+                            });
+                        }
                     }
                 });
 

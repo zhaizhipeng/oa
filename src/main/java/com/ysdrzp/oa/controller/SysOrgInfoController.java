@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.dto.result.OrgTreeDTO;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
-import com.ysdrzp.oa.vo.OrgDetailUpdateVO;
+import com.ysdrzp.oa.vo.OrgUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,14 +50,26 @@ public class SysOrgInfoController {
     }
 
     /**
-     * 修改并保存机构信息
+     * 修改机构信息
      * @return
      */
     @PostMapping("update")
     @ResponseBody
-    public YSDRZPResult update(@RequestBody OrgDetailUpdateVO orgDetailUpdateVO){
-        System.out.println(JSONUtil.toJsonStr(orgDetailUpdateVO));
-        YSDRZPResult ysdrzpResult = sysOrgInfoService.updateOrgDetailInfo(orgDetailUpdateVO);
+    public YSDRZPResult update(@RequestBody OrgUpdateVO orgUpdateVO){
+        System.out.println(JSONUtil.toJsonStr(orgUpdateVO));
+        YSDRZPResult ysdrzpResult = sysOrgInfoService.updateOrgInfo(orgUpdateVO);
+        return ysdrzpResult;
+    }
+
+    /**
+     * 删除机构信息
+     * @return
+     */
+    @PostMapping("delete")
+    @ResponseBody
+    public YSDRZPResult delete(@RequestBody OrgUpdateVO orgUpdateVO){
+        System.out.println(JSONUtil.toJsonStr(orgUpdateVO));
+        YSDRZPResult ysdrzpResult = sysOrgInfoService.deleteOrgInfo(orgUpdateVO.getId());
         return ysdrzpResult;
     }
 

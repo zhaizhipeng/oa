@@ -29,7 +29,7 @@
                 <legend>所有机构</legend>
             </fieldset>
 
-            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" lay-event="addOrg"><i class="layui-icon">&#xe654;</i>添加机构</button>
+            <button class="layui-btn layui-btn-normal layui-btn-radius" lay-event="addOrg" style="width: 120px; color: #23262E"><i class="layui-icon layui-icon-add-1"></i>添加机构</button>
 
             <div id="org_tree"></div>
         </div>

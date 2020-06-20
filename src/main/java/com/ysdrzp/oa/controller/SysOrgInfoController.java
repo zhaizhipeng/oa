@@ -80,7 +80,7 @@ public class SysOrgInfoController {
         SysOrgInfo sysOrgInfo = sysOrgInfoService.getOrgInfo(id);
         modelMap.put("fatherId", id);
         modelMap.put("fatherOrgName", sysOrgInfo.getOrgName());
-        return "/sys/org/add_org";
+        return "/sys/org/org_add";
     }
 
     /**

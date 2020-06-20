@@ -46,8 +46,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">
-                    <button lay-submit class="layui-btn layui-btn-radius layui-btn-normal" lay-filter="update-detail">
-                        <i class="layui-icon">&#xe642;</i>修改并保存
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="update-detail">
+                        <i class="layui-icon layui-icon-edit"></i>修改
                     </button>
                 </div>
             </div>

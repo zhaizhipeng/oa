@@ -41,7 +41,7 @@
 				</div>
 
 				<div class="layui-form-item">
-					<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal layui-btn-fluid" lay-submit lay-filter="confirm">确认</button>
+					<button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-fluid" lay-submit lay-filter="confirm">确认</button>
 				</div>
 			</form>
 		</blockquote>

@@ -12,9 +12,11 @@
 
     <body>
 
-        <div id="genderChart" style="width: 600px; height:350px;"></div>
+        <div id="genderChart" style="width: 600px; height:320px;"></div>
 
-        <div id="orgChart" style="width: 600px; height:350px;"></div>
+        <div style="width: 600px; height:60px;"></div>
+
+        <div id="orgChart" style="width: 600px; height:320px;"></div>
 
         <script src="${ysdrzp}/layui/layui.js"></script>
 
@@ -34,12 +36,16 @@
                         var genderChart = echarts.init(document.getElementById('genderChart'));
 
                         var genderOption = {
-                            title: {text: '员工性别分布'},
+                            title: {text: '用户男女比列分布'},
+                            tooltip: {
+                                trigger : 'item',
+                                formatter : "{a} <br/>{b}: {c} ({d}%)"
+                            },
                             series: [{
                                 type: 'pie',
-                                roseType: 'angle',
+                                name: "占比数据",
                                 data: [
-                                    {name : '保密', value: secret},
+                                    {name: '保密', value: secret},
                                     {name: '男', value: male},
                                     {name: '女', value: female}
                                 ],

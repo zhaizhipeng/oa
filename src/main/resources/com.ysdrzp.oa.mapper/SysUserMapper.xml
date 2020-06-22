@@ -299,12 +299,12 @@
 
   <select id="selectUserOrgTotal" resultType="hashmap">
     SELECT
-	    org.org_name as orgName,
+	    org.sub_name as orgName,
         count(1) as orgCounts
     FROM
 	    sys_user users
     LEFT JOIN sys_org_info org ON (users.org_id = org.org_id)
     where users.status = 1
-    GROUP BY org.org_name
+    GROUP BY org.sub_name
   </select>
 </mapper>

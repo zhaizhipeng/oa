@@ -1,7 +1,9 @@
 package com.ysdrzp.oa.dao;
 
 import com.ysdrzp.oa.dto.result.GenderDTO;
+import com.ysdrzp.oa.dto.result.UserAuthSearchResult;
 import com.ysdrzp.oa.entity.SysUser;
+import com.ysdrzp.oa.vo.UserAuthSearchVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,4 +38,25 @@ public interface SysUserMapper extends IBaseMapper<SysUser>{
      * @return
      */
     List<Map<String, Object>> selectUserOrgTotal();
+
+    /**
+     * 获取用户角色列表
+     * @param userAuthSearchVO
+     * @return
+     */
+    List<UserAuthSearchResult> getUserAuthList(UserAuthSearchVO userAuthSearchVO);
+
+    /**
+     * 获取用户角色名称
+     * @param userId
+     * @return
+     */
+    List<String> getRoleNamesByUserId(@Param("userId") Long userId);
+
+    /**
+     * 获取用户角色Id列表
+     * @param userId
+     * @return
+     */
+    List<Long> getRoleIdsByUserId(@Param("userId") Long userId);
 }

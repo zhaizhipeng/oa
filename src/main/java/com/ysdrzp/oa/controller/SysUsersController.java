@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.service.ISysUsersService;
 import com.ysdrzp.oa.vo.UserAddVO;
+import com.ysdrzp.oa.vo.UserRoleEditVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,4 +98,16 @@ public class SysUsersController {
         return result;
     }
 
+    /**
+     * 编辑用户角色
+     * @param userRoleEditVO
+     * @return
+     */
+    @PostMapping("editRole")
+    @ResponseBody
+    public YSDRZPResult editRole(@RequestBody UserRoleEditVO userRoleEditVO){
+        System.out.println(JSONUtil.toJsonStr(userRoleEditVO));
+        YSDRZPResult result = sysUsersService.editUserRole(userRoleEditVO);
+        return result;
+    }
 }

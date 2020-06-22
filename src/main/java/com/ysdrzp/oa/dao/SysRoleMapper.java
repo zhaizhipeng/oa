@@ -21,4 +21,10 @@ public interface SysRoleMapper extends IBaseMapper<SysRole>{
      * @return
      */
     SysRole selectRoleIsExist(@Param("roleCnName") String roleCnName);
+
+    /**
+     * 获取所有角色
+     * @return
+     */
+    List<SysRole> getAllRole();
 }

@@ -35,6 +35,12 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements ISys
     }
 
     @Override
+    public YSDRZPResult getAllRoles() {
+        List<SysRole> roles = sysRoleMapper.getAllRole();
+        return YSDRZPResult.ok(roles);
+    }
+
+    @Override
     public YSDRZPResult addRole(RoleAddVO roleAddVO) {
 
         SysRole sysRole = sysRoleMapper.selectRoleIsExist(roleAddVO.getRoleCnName());
@@ -104,6 +110,12 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements ISys
             sysRoleMapper.updateByPrimaryKey(sysRole);
         }
         return YSDRZPResult.ok("删除成功");
+    }
+
+    @Override
+    public YSDRZPResult selectList() {
+        List<SysRole> roles = sysRoleMapper.getlist(null);
+        return YSDRZPResult.ok(roles);
     }
 
 }

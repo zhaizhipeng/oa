@@ -202,4 +202,10 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <select id="getAllRole" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role where status = 1
+  </select>
+
 </mapper>

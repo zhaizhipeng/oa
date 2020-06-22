@@ -307,4 +307,48 @@
     where users.status = 1
     GROUP BY org.sub_name
   </select>
+
+  <!-- 获取用户角色授权列表 -->
+  <select id="getUserAuthList" parameterType="com.ysdrzp.oa.vo.UserAuthSearchVO" resultType="com.ysdrzp.oa.dto.result.UserAuthSearchResult">
+    SELECT
+      u.id as userId,
+      u.user_name as userName,
+      u.mobile_phone as mobilePhone,
+      o.org_name as orgName,
+      u.disabled as disabled
+    FROM
+     sys_user u
+    LEFT JOIN sys_org_info o ON u.org_id = o.org_id
+    <where>
+      <if test="userName != null and userName != ''">
+        and u.user_name like concat('%',#{userName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="mobilePhone != null and mobilePhone != ''">
+        and u.mobile_phone like concat('%',#{mobilePhone,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="orgId != null and orgId != ''">
+        and u.org_id = #{orgId}
+      </if>
+      <if test="roleId != null">
+        and #{roleId} in (select role_id from sys_user_role where user_id  = u.id)
+      </if>
+    </where>
+  </select>
+
+  <!-- 获取用户角色名称列表 -->
+  <select id="getRoleNamesByUserId" resultType="java.lang.String">
+    select sr.role_cn_name as roleName
+    from sys_user_role sur
+    left join sys_role sr on (sur.role_id = sr.id)
+    where sur.user_id = #{userId} and sr.disabled = 1
+  </select>
+
+  <!-- 获取用户角色Id列表 -->
+  <select id="getRoleIdsByUserId" resultType="long">
+    select sr.id as roleId
+    from sys_user_role sur
+    left join sys_role sr on (sur.role_id = sr.id)
+    where sur.user_id = #{userId} and sr.disabled = 1
+  </select>
+
 </mapper>

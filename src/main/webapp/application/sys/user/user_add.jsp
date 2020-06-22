@@ -77,7 +77,6 @@
 				 * @param d
 				 */
 				click: function(d){
-					//console.log(d.current.id);
 					$("#orgTreeSelect").val(d.current.name);
 					$("#orgId").val(d.current.id);
 				},

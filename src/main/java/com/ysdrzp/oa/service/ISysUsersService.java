@@ -1,10 +1,13 @@
 package com.ysdrzp.oa.service;
 
 import com.ysdrzp.oa.common.YSDRZPResult;
-import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.entity.SysUser;
 import com.ysdrzp.oa.vo.UserAddVO;
+import com.ysdrzp.oa.vo.UserAuthSearchVO;
+import com.ysdrzp.oa.vo.UserRoleEditVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
+
+import java.util.List;
 
 /**
  * 用户管理接口
@@ -64,4 +67,32 @@ public interface ISysUsersService extends IBaseService<SysUser>{
      * @return
      */
     YSDRZPResult getOrgDistribution();
+
+    /**
+     * 获取用户角色列表
+     * @param userAuthSearchVO
+     * @return
+     */
+    YSDRZPResult userAuthList(UserAuthSearchVO userAuthSearchVO);
+
+    /**
+     * 获取用户拥有的角色名称列表
+     * @param userId
+     * @return
+     */
+    List<String> getRoleNamesByUserId(Long userId);
+
+    /**
+     * 用户角色授权
+     * @param userRoleEditVO
+     * @return
+     */
+    YSDRZPResult editUserRole(UserRoleEditVO userRoleEditVO);
+
+    /**
+     * 获取用户拥有的角色Id列表
+     * @param userId
+     * @return
+     */
+    List<Long> getRoleIdsByUserId(Long userId);
 }

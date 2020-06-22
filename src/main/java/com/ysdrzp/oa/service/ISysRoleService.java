@@ -18,6 +18,12 @@ public interface ISysRoleService extends IBaseService<SysRole>{
     YSDRZPResult getList(RoleSearchVO roleSearchVO);
 
     /**
+     * 获取所有角色
+     * @return
+     */
+    YSDRZPResult getAllRoles();
+
+    /**
      * 新增角色
      * @param roleAddVO
      * @return
@@ -44,5 +50,11 @@ public interface ISysRoleService extends IBaseService<SysRole>{
      * @return
      */
     YSDRZPResult delRole(Long id);
+
+    /**
+     * 获取角色下拉列表
+     * @return
+     */
+    YSDRZPResult selectList();
 
 }

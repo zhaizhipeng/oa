@@ -12,11 +12,14 @@ import com.ysdrzp.oa.dao.SysUserMapper;
 import com.ysdrzp.oa.dto.result.GenderDTO;
 import com.ysdrzp.oa.dto.result.GenderDistributionDTO;
 import com.ysdrzp.oa.dto.result.OrgDistributionDTO;
+import com.ysdrzp.oa.dto.result.UserAuthSearchResult;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.entity.SysUser;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
 import com.ysdrzp.oa.service.ISysUsersService;
 import com.ysdrzp.oa.vo.UserAddVO;
+import com.ysdrzp.oa.vo.UserAuthSearchVO;
+import com.ysdrzp.oa.vo.UserRoleEditVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -187,6 +190,39 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
             orgDistributionDTO.setOrgCounts(orgCounts);
         }
         return YSDRZPResult.ok(orgDistributionDTO);
+    }
+
+    @Override
+    public YSDRZPResult userAuthList(UserAuthSearchVO userAuthSearchVO) {
+        PageHelper.startPage(userAuthSearchVO.getPage(), userAuthSearchVO.getLimit());
+
+        List<UserAuthSearchResult> userAuthSearchResults = sysUserMapper.getUserAuthList(userAuthSearchVO);
+        PageInfo<UserAuthSearchResult> pageInfo = new PageInfo<>(userAuthSearchResults);
+
+        if (CollectionUtil.isNotEmpty(userAuthSearchResults)){
+            for (UserAuthSearchResult userAuthSearchResult : userAuthSearchResults){
+                List<String> list = sysUserMapper.getRoleNamesByUserId(userAuthSearchResult.getUserId());
+                userAuthSearchResult.setRoleCnNames(list != null ? list.toArray() : null);
+            }
+        }
+        return YSDRZPResult.ok("ok", pageInfo.getTotal(), userAuthSearchResults);
+    }
+
+    @Override
+    public List<String> getRoleNamesByUserId(Long userId) {
+        List<String> list = sysUserMapper.getRoleNamesByUserId(userId);
+        return list;
+    }
+
+    @Override
+    public YSDRZPResult editUserRole(UserRoleEditVO userRoleEditVO) {
+        return YSDRZPResult.ok();
+    }
+
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        List<Long> roleIds = sysUserMapper.getRoleIdsByUserId(userId);
+        return roleIds;
     }
 
 }

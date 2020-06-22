@@ -33,6 +33,28 @@ public class SysRoleController {
     }
 
     /**
+     * 获取角色下拉列表
+     * @return
+     */
+    @PostMapping("selectList")
+    @ResponseBody
+    public YSDRZPResult selectList(){
+        YSDRZPResult result = sysRoleService.selectList();
+        return result;
+    }
+
+    /**
+     * 获取所有角色信息
+     * @return
+     */
+    @PostMapping("allRole")
+    @ResponseBody
+    public YSDRZPResult allRole(){
+        YSDRZPResult result = sysRoleService.getAllRoles();
+        return result;
+    }
+
+    /**
      * 新增角色
      * @param roleAddVO
      * @return

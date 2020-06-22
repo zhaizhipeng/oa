@@ -26,23 +26,24 @@
 				<div class="layui-form-mid layui-word-aux">请输入真实姓名</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">机构所属</label>
+				<div class="layui-input-inline">
+					<input type="text" id="orgTreeSelect" name="orgName" lay-filter="tree" lay-verify="required" value="" class="layui-input">
+					<input type="hidden" id="orgId" name="orgId" value="" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">性别</label>
 				<div class="layui-input-block">
-					<input type="radio" name="gender" value="0" title="保密">
+					<input type="radio" name="gender" value="0" title="保密" checked>
 					<input type="radio" name="gender" value="1" title="男">
-					<input type="radio" name="gender" value="2" title="女" checked>
+					<input type="radio" name="gender" value="2" title="女">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">备注内容</label>
 				<div class="layui-input-block">
 					<textarea name="miscDesc" class="layui-textarea"></textarea>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">机构所属</label>
-				<div class="layui-input-inline">
-					<input type="text" name="orgName" required lay-verify="required" value="地表最强" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -54,8 +55,41 @@
 	<script type="text/javascript" src= "${ysdrzp}/layui/layui.js"></script>
 
 	<script>
-		layui.use(['form','jquery','layer'], function(){
-			var form = layui.form, $ = layui.jquery, layer = layui.layer;
+
+		layui.config({
+			base: '${ysdrzp}/layui/lay/modules/'
+		}).extend({treeSelect: 'treeSelect/treeSelect'});
+
+		layui.use(['form','jquery','layer','treeSelect'], function(){
+			var form = layui.form, $ = layui.jquery, layer = layui.layer,treeSelect= layui.treeSelect;
+
+			treeSelect.render({
+				elem: '#orgTreeSelect',
+				data: '${ysdrzp}/org/orgTreeSelect',
+				type: 'post',
+				placeholder: '选择机构所属',
+				/**
+				 * 是否开启搜索功能
+				 */
+				search: true,
+				/**
+				 * 点击回调
+				 * @param d
+				 */
+				click: function(d){
+					//console.log(d.current.id);
+					$("#orgTreeSelect").val(d.current.name);
+					$("#orgId").val(d.current.id);
+				},
+				/**
+				 * 加载完成后的回调函数
+				 * @param d
+				 */
+				success: function (d) {
+					//console.log(d);
+				}
+			});
+
 			form.on('submit(confirm)', function(data){
 				$.ajax({
 					type:'post',

@@ -36,6 +36,18 @@ public class SysOrgInfoController {
     }
 
     /**
+     * 获取机构下拉树
+     * @return
+     */
+    @PostMapping("orgTreeSelect")
+    @ResponseBody
+    public List<HashMap<String, Object>> orgTreeSelect(){
+        List<HashMap<String, Object>> result = sysOrgInfoService.getOrgTreeSelect(null);
+        return result;
+    }
+
+
+    /**
      * 渲染机构详情
      * @return
      */

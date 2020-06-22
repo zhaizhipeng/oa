@@ -24,4 +24,9 @@ public class UserAddVO {
      * 性别：0：保密、1：男、2：女
      */
     private Integer gender;
+
+    /**
+     * 机构ID
+     */
+    private String orgId;
 }

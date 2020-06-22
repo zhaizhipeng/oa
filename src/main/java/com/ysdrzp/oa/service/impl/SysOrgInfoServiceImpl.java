@@ -76,6 +76,41 @@ public class SysOrgInfoServiceImpl extends BaseServiceImpl<SysOrgInfo> implement
     }
 
     @Override
+    public List<HashMap<String, Object>> getOrgTreeSelect(Long id) {
+        List<OrgTreeDTO> orgTreeList = sysOrgInfoMapper.getOrgTree(id);
+
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        result = buildOrgTreeSelect(orgTreeList, result);
+        System.out.println(JSONUtil.toJsonStr(result));
+        return result;
+    }
+
+    /**
+     * 生成机构树
+     * @param orgTreeList
+     * @param result
+     * @return
+     */
+    private List<HashMap<String, Object>> buildOrgTreeSelect(List<OrgTreeDTO> orgTreeList, List<HashMap<String, Object>> result) {
+
+        if (CollectionUtil.isNotEmpty(orgTreeList)){
+            for (OrgTreeDTO orgTreeDTO : orgTreeList){
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("id", orgTreeDTO.getOrgId());
+                map.put("name", orgTreeDTO.getOrgName());
+                map.put("open", true);
+                map.put("checked", false);
+
+                List<HashMap<String, Object>> childrenList = new ArrayList<>();
+                List<OrgTreeDTO> childrenOrgTreeList = orgTreeDTO.getChildren();
+                map.put("children", buildOrgTreeSelect(childrenOrgTreeList, childrenList));
+                result.add(map);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public OrgTreeDTO getOrgDetail(Long id) {
         OrgTreeDTO orgTreeDTO = sysOrgInfoMapper.selectOrgDetail(id);
         return orgTreeDTO;

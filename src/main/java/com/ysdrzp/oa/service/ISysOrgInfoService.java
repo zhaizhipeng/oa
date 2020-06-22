@@ -37,6 +37,13 @@ public interface ISysOrgInfoService extends IBaseService<SysOrgInfo>{
     List<HashMap<String, Object>> getOrgTree(@Param("id") Long id);
 
     /**
+     * 获取组织机构下拉树树
+     * @return
+     * @param id
+     */
+    List<HashMap<String, Object>> getOrgTreeSelect(@Param("id") Long id);
+
+    /**
      * 获取机构详情
      * @param id
      * @return

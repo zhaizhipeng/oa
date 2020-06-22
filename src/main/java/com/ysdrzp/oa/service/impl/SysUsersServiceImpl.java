@@ -7,7 +7,6 @@ import com.github.pagehelper.PageInfo;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.dao.IBaseMapper;
-import com.ysdrzp.oa.dao.SysOrgInfoMapper;
 import com.ysdrzp.oa.dao.SysUserMapper;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.entity.SysUser;
@@ -18,7 +17,6 @@ import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,7 +68,7 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
         sysUser.setPassword(MD5.create().digest(USER_INITIAL_PASSWORD).toString());
         sysUser.setPwdValidDate(DateUtil.nextMonth());
         sysUser.setGender(userAddVO.getGender());
-        sysUser.setOrgId("00");
+        sysUser.setOrgId(userAddVO.getOrgId());
         sysUser.setCreateOperId(-1l);
         sysUser.setCreateTime(DateUtil.date());
         sysUser.setCreateOperName("系统管理员");

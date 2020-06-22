@@ -1,5 +1,6 @@
 package com.ysdrzp.oa.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.github.pagehelper.PageHelper;
@@ -8,6 +9,9 @@ import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.dao.IBaseMapper;
 import com.ysdrzp.oa.dao.SysUserMapper;
+import com.ysdrzp.oa.dto.result.GenderDTO;
+import com.ysdrzp.oa.dto.result.GenderDistributionDTO;
+import com.ysdrzp.oa.dto.result.OrgDistributionDTO;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.entity.SysUser;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
@@ -18,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISysUsersService {
@@ -141,6 +146,47 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
             sysUserMapper.updateByPrimaryKey(sysUser);
         }
         return YSDRZPResult.ok("密码重置成功");
+    }
+
+    @Override
+    public YSDRZPResult getGenderDistribution() {
+
+        GenderDistributionDTO genderDistributionDTO = new GenderDistributionDTO();
+        List<GenderDTO> genderDTOS = sysUserMapper.selectGenderTotal();
+        if (CollectionUtil.isNotEmpty(genderDTOS)){
+            for (GenderDTO genderDTO : genderDTOS){
+                switch (genderDTO.getGenderType()){
+                    case 0:
+                        genderDistributionDTO.setSecret(genderDTO.getCount() == null ? 0 : genderDTO.getCount());
+                        break;
+                    case 1:
+                        genderDistributionDTO.setMale(genderDTO.getCount() == null ? 0: genderDTO.getCount());
+                        break;
+                    case 2:
+                        genderDistributionDTO.setFemale(genderDTO.getCount() == null ? 0: genderDTO.getCount());
+                    default:
+                        break;
+                }
+            }
+        }
+        return YSDRZPResult.ok(genderDistributionDTO);
+    }
+
+    @Override
+    public YSDRZPResult getOrgDistribution() {
+        List<Map<String, Object>> resultMapList = sysUserMapper.selectUserOrgTotal();
+        OrgDistributionDTO orgDistributionDTO = new OrgDistributionDTO();
+        if (CollectionUtil.isNotEmpty(resultMapList)){
+            String[] orgNames = new String[resultMapList.size()];
+            Long[] orgCounts = new Long[resultMapList.size()];
+            for (int i = 0; i < resultMapList.size(); i++){
+                orgNames[i] = String.valueOf(resultMapList.get(i).get("orgName"));
+                orgCounts[i] = (Long) resultMapList.get(i).get("orgCounts");
+            }
+            orgDistributionDTO.setOrgNames(orgNames);
+            orgDistributionDTO.setOrgCounts(orgCounts);
+        }
+        return YSDRZPResult.ok(orgDistributionDTO);
     }
 
 }

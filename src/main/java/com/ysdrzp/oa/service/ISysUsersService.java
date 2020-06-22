@@ -53,4 +53,15 @@ public interface ISysUsersService extends IBaseService<SysUser>{
      */
     YSDRZPResult pwdReset(Long id);
 
+    /**
+     * 获取用户性别统计数据
+     * @return
+     */
+    YSDRZPResult getGenderDistribution();
+
+    /**
+     * 获取用户机构数据
+     * @return
+     */
+    YSDRZPResult getOrgDistribution();
 }

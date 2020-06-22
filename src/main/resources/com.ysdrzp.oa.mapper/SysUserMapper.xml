@@ -287,4 +287,24 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <select id="selectGenderTotal" resultType="com.ysdrzp.oa.dto.result.GenderDTO">
+    SELECT
+        gender as genderType,
+        COUNT(1) as count
+    FROM
+        `sys_user` where status = 1
+    GROUP BY
+        gender
+  </select>
+
+  <select id="selectUserOrgTotal" resultType="hashmap">
+    SELECT
+	    org.org_name as orgName,
+        count(1) as orgCounts
+    FROM
+	    sys_user users
+    LEFT JOIN sys_org_info org ON (users.org_id = org.org_id)
+    where users.status = 1
+    GROUP BY org.org_name
+  </select>
 </mapper>

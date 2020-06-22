@@ -15,9 +15,6 @@
         <div class="layui-layout layui-layout-admin">
             <div class="layui-header">
                 <div class="layui-logo">云上的日子</div>
-                <ul class="layui-nav layui-layout-left">
-                    <li class="layui-nav-item"><a href="javascript:void(0)"><i class="layui-icon layui-icon-console"></i>&nbsp;控制台</a></li>
-                </ul>
                 <ul class="layui-nav layui-layout-right">
                     <li class="layui-nav-item">
                         <a href=""><img src="image/head.jpg" class="layui-nav-img">向往的生活</a>
@@ -56,6 +53,9 @@
                                     <a data-url="${ysdrzp}/application/sys/org/org_list.jsp" data-id="5555" data-title="授权管理" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-auz"></i>&nbsp;&nbsp;授权管理</a>
                                 </dd>
                             </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a data-url="${ysdrzp}/application/sys/console/console.jsp" data-id="6666" data-title="数据中心" href="#" class="site-nav-active" data-type="tabAdd"><i class="layui-icon layui-icon-console"></i>&nbsp;&nbsp;数据中心</a>
                         </li>
                     </ul>
                 </div>

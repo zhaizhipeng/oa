@@ -104,10 +104,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements ISys
             return YSDRZPResult.ok("角色不存在");
         }
         if (sysRole != null){
-            // 执行逻辑删除
-            sysRole.setStatus(new Integer(0));
-            sysRole.setUpdateTime(DateUtil.date());
-            sysRoleMapper.updateByPrimaryKey(sysRole);
+            sysRoleMapper.deleteByPrimaryKey(id);
         }
         return YSDRZPResult.ok("删除成功");
     }

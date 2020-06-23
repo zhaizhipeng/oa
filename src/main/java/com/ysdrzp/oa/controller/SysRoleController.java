@@ -1,13 +1,22 @@
 package com.ysdrzp.oa.controller;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
+import com.ysdrzp.oa.entity.SysRoleResources;
+import com.ysdrzp.oa.service.ISysRoleResourcesService;
 import com.ysdrzp.oa.service.ISysRoleService;
 import com.ysdrzp.oa.vo.RoleAddVO;
+import com.ysdrzp.oa.vo.RoleResourceEditVO;
 import com.ysdrzp.oa.vo.RoleSearchVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 角色管理
@@ -18,6 +27,9 @@ public class SysRoleController {
 
     @Autowired
     private ISysRoleService sysRoleService;
+
+    @Autowired
+    private ISysRoleResourcesService sysRoleResourcesService;
 
     /**
      * 获取角色列表
@@ -104,6 +116,36 @@ public class SysRoleController {
         System.out.println(id);
         YSDRZPResult result = sysRoleService.delRole(id);
         return result;
+    }
+
+    /**
+     * 打开角色资源编辑页面
+     * @param roleId
+     * @param modelMap
+     * @return
+     */
+    @GetMapping("openRoleResourcesEdit")
+    public String openRoleResourcesEdit(@Param("roleId") Long roleId, @Param("roleName") String roleName, ModelMap modelMap){
+        modelMap.put("roleId", roleId);
+        modelMap.put("roleName", roleName);
+        List<SysRoleResources> result = sysRoleResourcesService.getAllRoleResources(roleId);
+        if (CollectionUtil.isNotEmpty(result)){
+            List currentChecked = new ArrayList<>();
+            for (int i = 0; i < result.size(); i++){
+                currentChecked.add(result.get(i).getResourcesId());
+            }
+            modelMap.put("currentChecked", JSONUtil.toJsonStr(currentChecked.toArray()));
+        }
+
+        return "/sys/role/role_edit";
+    }
+
+    @PostMapping("editRoleResources")
+    @ResponseBody
+    public YSDRZPResult editRoleResources(@RequestBody RoleResourceEditVO roleResourceEditVO){
+
+        YSDRZPResult ysdrzpResult = sysRoleResourcesService.editRoleResource(roleResourceEditVO);
+        return ysdrzpResult;
     }
 
 }

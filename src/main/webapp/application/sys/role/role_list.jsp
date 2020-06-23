@@ -34,7 +34,8 @@
             {{# } else { }}
             <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">禁用</a>
             {{# } }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <%--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
         </script>
 
         <script type="text/html" id="disabledTpl">
@@ -160,11 +161,11 @@
                     }
 
                     /**删除*/
-                    if(layEvent === 'del'){
+                    /*if(layEvent === 'del'){
                         layer.confirm('确认删除么', {icon : 2, skin: 'layui-layer-molv'}, function(index){
-                            /**
+                            /!**
                              * 删除对应行（tr）的DOM结构，并更新缓存
-                             */
+                             *!/
                             obj.del();
 
                             $.ajax({
@@ -177,6 +178,22 @@
                                     });
                                 }
                             });
+                        });
+                    }*/
+
+                    if (layEvent === 'edit'){
+                        var index = layer.open({
+                            type: 2,
+                            title: '编辑角色',
+                            shadeClose: true,
+                            area: ['1025px', '625px'],
+                            content: ysdrzp + '/role/openRoleResourcesEdit?roleId=' + obj.data.id + "&roleName=" + obj.data.roleCnName,
+                            cancel: function(index, layero){
+                                if(confirm('确认不要编辑角色么')){
+                                    layer.close(index)
+                                }
+                                return false;
+                            }
                         });
                     }
 

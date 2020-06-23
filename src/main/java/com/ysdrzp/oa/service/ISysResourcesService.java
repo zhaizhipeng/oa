@@ -5,7 +5,6 @@ import com.ysdrzp.oa.dto.result.MenuTreeDTO;
 import com.ysdrzp.oa.entity.SysResources;
 import com.ysdrzp.oa.vo.ResourcesSaveVO;
 import com.ysdrzp.oa.vo.ResourcesUpdateVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,14 @@ public interface ISysResourcesService extends IBaseService<SysResources>{
      * @return
      * @param id
      */
-    List<HashMap<String, Object>> getMenuTree(@Param("id") Long id);
+    List<HashMap<String, Object>> getMenuTree(Long id);
+
+    /**
+     * 获取角色菜单资源树
+     * @param roleId
+     * @return
+     */
+    List<HashMap<String, Object>> getRoleMenuTree(Long roleId);
 
     /**
      * 获取资源详情
@@ -63,4 +69,5 @@ public interface ISysResourcesService extends IBaseService<SysResources>{
      * @return
      */
     YSDRZPResult saveResources(ResourcesSaveVO resourcesSaveVO);
+
 }

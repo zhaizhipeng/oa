@@ -2,7 +2,6 @@ package com.ysdrzp.oa.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
-import com.ysdrzp.oa.service.ISysRoleService;
 import com.ysdrzp.oa.service.ISysUsersService;
 import com.ysdrzp.oa.vo.UserAuthSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class SysUserAuthorizationController {
 
     @Autowired
     private ISysUsersService sysUsersService;
-
-    @Autowired
-    private ISysRoleService sysRoleService;
 
     /**
      * 获取用户授权页面

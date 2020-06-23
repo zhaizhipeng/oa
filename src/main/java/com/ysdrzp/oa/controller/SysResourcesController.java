@@ -6,6 +6,7 @@ import com.ysdrzp.oa.entity.SysResources;
 import com.ysdrzp.oa.service.ISysResourcesService;
 import com.ysdrzp.oa.vo.ResourcesSaveVO;
 import com.ysdrzp.oa.vo.ResourcesUpdateVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,17 @@ public class SysResourcesController {
     @ResponseBody
     public List<HashMap<String, Object>> menuTree(){
         List<HashMap<String, Object>> result = sysResourcesService.getMenuTree(null);
+        return result;
+    }
+
+    /**
+     * 获取菜单资源组织树
+     * @return
+     */
+    @GetMapping("roleMenuTree")
+    @ResponseBody
+    public List<HashMap<String, Object>> menuTree(@Param("roleId") Long roleId){
+        List<HashMap<String, Object>> result = sysResourcesService.getRoleMenuTree(roleId);
         return result;
     }
 

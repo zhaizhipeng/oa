@@ -4,12 +4,15 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.dao.IBaseMapper;
 import com.ysdrzp.oa.dao.SysResourcesMapper;
 import com.ysdrzp.oa.dto.result.MenuTreeDTO;
 import com.ysdrzp.oa.entity.SysResources;
+import com.ysdrzp.oa.entity.SysRoleResources;
 import com.ysdrzp.oa.service.ISysResourcesService;
+import com.ysdrzp.oa.service.ISysRoleResourcesService;
 import com.ysdrzp.oa.vo.ResourcesSaveVO;
 import com.ysdrzp.oa.vo.ResourcesUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +21,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysResourcesServiceImpl extends BaseServiceImpl<SysResources> implements ISysResourcesService {
+
+    @Autowired
+    private ISysRoleResourcesService sysRoleResourcesService;
 
     @Autowired
     private SysResourcesMapper sysResourcesMapper;
@@ -68,6 +75,55 @@ public class SysResourcesServiceImpl extends BaseServiceImpl<SysResources> imple
                 List<HashMap<String, Object>> childrenList = new ArrayList<>();
                 List<MenuTreeDTO> children = menuTreeDTO.getChildren();
                 map.put("children", buildMenuTree(children, childrenList));
+                result.add(map);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getRoleMenuTree(Long roleId) {
+        List<MenuTreeDTO> menuTreeDTOList = sysResourcesMapper.getMenuTree(null);
+
+        Map<Long, Long> roleCurrentResourceMap = new HashMap<>();
+        List<SysRoleResources> sysRoleResources = sysRoleResourcesService.getAllRoleResources(roleId);
+        if (CollectionUtil.isNotEmpty(sysRoleResources)){
+            for (int i = 0; i < sysRoleResources.size(); i++){
+                roleCurrentResourceMap.put(sysRoleResources.get(i).getResourcesId(), sysRoleResources.get(i).getRoleId());
+            }
+        }
+
+        System.out.println("roleCurrentResourceMap:" + JSONUtil.toJsonStr(roleCurrentResourceMap));
+
+        Integer deep = 1;
+
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        result = buildRoleMenuTree(menuTreeDTOList, result, roleCurrentResourceMap, deep);
+        return result;
+    }
+
+    /**
+     * 生成角色资源树-选中已有角色
+     * @param menuTreeDTOList
+     * @param result
+     * @return
+     */
+    private List<HashMap<String, Object>> buildRoleMenuTree(List<MenuTreeDTO> menuTreeDTOList, List<HashMap<String, Object>> result,
+                                                            Map<Long, Long> roleCurrentResourceMap, Integer deep) {
+
+        if (CollectionUtil.isNotEmpty(menuTreeDTOList)){
+            for (MenuTreeDTO menuTreeDTO : menuTreeDTOList){
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("id", menuTreeDTO.getId());
+                map.put("title", menuTreeDTO.getResourcesName());
+                map.put("spread", true);
+                if (deep == 3 && roleCurrentResourceMap.get(menuTreeDTO.getId()) != null){
+                    map.put("checked", true);
+                }
+                List<HashMap<String, Object>> childrenList = new ArrayList<>();
+                List<MenuTreeDTO> children = menuTreeDTO.getChildren();
+
+                map.put("children", buildRoleMenuTree(children, childrenList, roleCurrentResourceMap, deep + 1));
                 result.add(map);
             }
         }

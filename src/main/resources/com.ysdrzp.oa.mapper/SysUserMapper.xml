@@ -351,4 +351,10 @@
     where sur.user_id = #{userId} and sr.disabled = 1
   </select>
 
+  <!-- 删除用户角色授权记录 -->
+  <update id="delRoles" >
+    delete from sys_user_role
+    where user_id = #{userId}
+  </update>
+
 </mapper>

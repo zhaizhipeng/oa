@@ -15,7 +15,9 @@ import com.ysdrzp.oa.dto.result.OrgDistributionDTO;
 import com.ysdrzp.oa.dto.result.UserAuthSearchResult;
 import com.ysdrzp.oa.entity.SysOrgInfo;
 import com.ysdrzp.oa.entity.SysUser;
+import com.ysdrzp.oa.entity.SysUserRole;
 import com.ysdrzp.oa.service.ISysOrgInfoService;
+import com.ysdrzp.oa.service.ISysUserRoleService;
 import com.ysdrzp.oa.service.ISysUsersService;
 import com.ysdrzp.oa.vo.UserAddVO;
 import com.ysdrzp.oa.vo.UserAuthSearchVO;
@@ -24,6 +26,7 @@ import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +43,9 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
 
     @Autowired
     private ISysOrgInfoService sysOrgInfoService;
+
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
 
     @Override
     public IBaseMapper getMapper() {
@@ -216,7 +222,33 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
 
     @Override
     public YSDRZPResult editUserRole(UserRoleEditVO userRoleEditVO) {
-        return YSDRZPResult.ok();
+
+        Long userId = userRoleEditVO.getUserId();
+
+        sysUserMapper.delRoles(userRoleEditVO.getUserId());
+
+        List<SysUserRole> sysUserRoles = new ArrayList<>();
+
+        Long[] roles = userRoleEditVO.getRoleIds();
+        if (roles.length > 0){
+            for (int i = 0; i < roles.length; i++){
+                Long roleId = roles[i];
+                SysUserRole sysUserRole = new SysUserRole();
+                sysUserRole.setUserId(userId);
+                sysUserRole.setRoleId(roleId);
+                sysUserRole.setStatus(1);
+                sysUserRole.setCreateOperId(-1l);
+                sysUserRole.setCreateOperName("管理员");
+                sysUserRole.setCreateTime(DateUtil.date());
+                sysUserRole.setUpdateOperId(-1l);
+                sysUserRole.setUpdateOperName("管理员");
+                sysUserRole.setUpdateTime(DateUtil.date());
+                sysUserRoles.add(sysUserRole);
+            }
+        }
+
+        sysUserRoleService.batchInsertUserRole(sysUserRoles);
+        return YSDRZPResult.ok("用户角色编辑成功");
     }
 
     @Override

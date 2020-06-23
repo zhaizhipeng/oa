@@ -11,16 +11,6 @@ public class UserRoleEditVO {
     private Long userId;
 
     /**
-     * 用户名
-     */
-    private String userName;
-
-    /**
-     * 手机号
-     */
-    private String mobilePhone;
-
-    /**
      * 角色Ids
      */
     private Long[] roleIds;

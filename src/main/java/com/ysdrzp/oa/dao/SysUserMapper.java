@@ -59,4 +59,10 @@ public interface SysUserMapper extends IBaseMapper<SysUser>{
      * @return
      */
     List<Long> getRoleIdsByUserId(@Param("userId") Long userId);
+
+    /**
+     * 删除用户角色
+     * @param userId
+     */
+    void delRoles(Long userId);
 }

@@ -31,8 +31,9 @@
 			<div style="height: 15px"></div>
 
 			<div class="layui-form-item layui-form-text">
-				<label class="layui-form-label">选择角色</label>
-				<div class="layui-input-block">
+				<span style="font-size: medium; color: #0C0C0C">选择角色</span>
+				<div style="height: 15px"></div>
+				<div class="layui-input-block" style="border: 1px solid #c0c4cc; width: auto; height: 200px; background:#f2f2f2;">
 					<div class="layui-input-block" id="roleCheck"></div>
 				</div>
 			</div>

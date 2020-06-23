@@ -170,4 +170,36 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <insert id="batchInsert" parameterType="java.util.List">
+    INSERT INTO sys_user_role (
+      id,
+      user_id,
+      role_id,
+      misc_desc,
+      status,
+      create_time,
+      create_oper_id,
+      create_oper_name,
+      update_time,
+      update_oper_id,
+      update_oper_name
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.id,jdbcType=BIGINT},
+        #{item.userId,jdbcType=BIGINT},
+        #{item.roleId,jdbcType=BIGINT},
+        #{item.miscDesc,jdbcType=VARCHAR},
+        #{item.status,jdbcType=INTEGER},
+        #{item.createTime,jdbcType=TIMESTAMP},
+        #{item.createOperId,jdbcType=BIGINT},
+        #{item.createOperName,jdbcType=VARCHAR},
+        #{item.updateTime,jdbcType=TIMESTAMP},
+        #{item.updateOperId,jdbcType=BIGINT},
+        #{item.updateOperName,jdbcType=VARCHAR}
+    )
+    </foreach>
+  </insert>
+
 </mapper>

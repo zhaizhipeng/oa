@@ -102,11 +102,11 @@
                     contentType: 'application/json',
                     page: true,
                     cols: [[
-                        {field: 'userId', title: 'ID', width:180},
-                        {field: 'mobilePhone', title: '手机号', width:250},
-                        {field: 'userName', title: '用户名', width:250},
-                        {field: 'orgName', title: '机构所属', width:250},
-                        {field: 'roleCnNames', title: '关联角色', width:450, fixed: 'right'},
+                        {field: 'userId', title: 'ID', width:120},
+                        {field: 'mobilePhone', title: '手机号', width:120},
+                        {field: 'userName', title: '用户名', width:120},
+                        {field: 'orgName', title: '机构所属', width:180},
+                        {field: 'roleCnNames', title: '关联角色', width:750, fixed: 'right'},
                         {title: '操作', align: 'center', toolbar: '#singleOperBar', fixed: 'right'}
                     ]],
                     limit: 10,
@@ -151,10 +151,10 @@
                             type: 2,
                             title: '编辑角色',
                             shadeClose: true,
-                            area: ['750px', '335px'],
+                            area: ['900px', '450px'],
                             content: ysdrzp + '/authorization/getUserAuthEdit?mobilePhone=' + data.mobilePhone + "&userName=" + data.userName + "&userId=" + data.userId,
                             cancel: function(index, layero){
-                                if(confirm('确认不要编辑用户角色么')){
+                                if(confirm('确认放弃授权用户角色么')){
                                     layer.close(index)
                                 }
                                 return false;

@@ -4,8 +4,10 @@ import cn.hutool.core.date.DateUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.dao.IBaseMapper;
 import com.ysdrzp.oa.dao.SysRoleResourcesMapper;
+import com.ysdrzp.oa.entity.SysRole;
 import com.ysdrzp.oa.entity.SysRoleResources;
 import com.ysdrzp.oa.service.ISysRoleResourcesService;
+import com.ysdrzp.oa.service.ISysRoleService;
 import com.ysdrzp.oa.vo.RoleResourceEditVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class SysRoleResourcesServiceImpl extends BaseServiceImpl<SysRoleResource
     @Autowired
     private SysRoleResourcesMapper sysRoleResourcesMapper;
 
+    @Autowired
+    private ISysRoleService sysRoleService;
+
     @Override
     public IBaseMapper getMapper() {
         return sysRoleResourcesMapper;
@@ -31,6 +36,17 @@ public class SysRoleResourcesServiceImpl extends BaseServiceImpl<SysRoleResource
 
     @Override
     public YSDRZPResult editRoleResource(RoleResourceEditVO roleResourceEditVO) {
+
+        SysRole sysRole = sysRoleService.selectByPrimaryKey(roleResourceEditVO.getRoleId());
+        if (sysRole != null){
+            if (! sysRole.getRoleCnName().equals(roleResourceEditVO.getRoleName())){
+                sysRole.setRoleCnName(roleResourceEditVO.getRoleName());
+                sysRole.setUpdateTime(DateUtil.date());
+                sysRoleService.updateByPrimaryKey(sysRole);
+            }
+        }else {
+            return YSDRZPResult.ok("角色编辑失败，角色不存在");
+        }
 
         sysRoleResourcesMapper.deleteByRoleId(roleResourceEditVO.getRoleId());
 
@@ -56,7 +72,7 @@ public class SysRoleResourcesServiceImpl extends BaseServiceImpl<SysRoleResource
         }
 
         sysRoleResourcesMapper.batchInsertRoleResources(sysRoleResourcesList);
-        return YSDRZPResult.ok("角色授权成功");
+        return YSDRZPResult.ok("角色编辑成功");
     }
 
 

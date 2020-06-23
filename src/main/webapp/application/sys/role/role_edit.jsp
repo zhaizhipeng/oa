@@ -31,7 +31,7 @@
 						<label class="layui-form-label">角色名称</label>
 						<div class="layui-input-inline">
 							<input type="hidden" name="roleId" required lay-verify="required" class="layui-input" value="${roleId}">
-							<input type="text" name="roleName" class="layui-input" disabled value="${roleName}">
+							<input type="text" name="roleName" class="layui-input" value="${roleName}">
 						</div>
 					</div>
 					<div class="layui-inline" style="left: 480px">

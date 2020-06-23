@@ -14,6 +14,11 @@ public class RoleResourceEditVO {
     private Long roleId;
 
     /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
      * 资源Ids
      */
     private String resourcesIds;

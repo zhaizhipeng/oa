@@ -35,7 +35,7 @@ public class SysUserAuthorizationController {
         modelMap.put("userId", userId);
         List<Long> roles = sysUsersService.getRoleIdsByUserId(userId);
         modelMap.put("currentRoleIds", JSONUtil.toJsonStr(roles.toArray()));
-        return "sys/authorization/user_auth_edit";
+        return "application/sys/authorization/user_auth_edit";
     }
 
     @PostMapping("userAuthList")

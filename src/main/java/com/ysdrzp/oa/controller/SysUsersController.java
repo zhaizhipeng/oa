@@ -1,13 +1,19 @@
 package com.ysdrzp.oa.controller;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.ysdrzp.oa.common.RedisUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
+import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.service.ISysUsersService;
 import com.ysdrzp.oa.vo.UserAddVO;
+import com.ysdrzp.oa.vo.UserLoginVO;
 import com.ysdrzp.oa.vo.UserRoleEditVO;
 import com.ysdrzp.oa.vo.UsersSearchVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,6 +25,9 @@ public class SysUsersController {
 
     @Autowired
     private ISysUsersService sysUsersService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 获取机构列表
@@ -110,4 +119,58 @@ public class SysUsersController {
         YSDRZPResult result = sysUsersService.editUserRole(userRoleEditVO);
         return result;
     }
+
+    /**
+     * 用户登录
+     * @param userLoginVO
+     * @return
+     */
+    @PostMapping("login")
+    @ResponseBody
+    public YSDRZPResult login(@RequestBody UserLoginVO userLoginVO){
+
+        if (StrUtil.isBlank(userLoginVO.getMobilePhone())){
+            return YSDRZPResult.ok("手机号不能为空");
+        }
+
+        if (StrUtil.isBlank(userLoginVO.getPassword())){
+            return YSDRZPResult.ok("密码不能为空");
+        }
+
+        YSDRZPResult ysdrzpResult = sysUsersService.login(userLoginVO.getMobilePhone(), userLoginVO.getPassword());
+        return ysdrzpResult;
+    }
+
+    /**
+     * 打开首页
+     * @param token
+     * @return
+     */
+    @GetMapping("openIndex")
+    public String openIndex(@Param("token") String token, @Param("mobilePhone") String mobilePhone, ModelMap modelMap){
+
+        if (StrUtil.isBlank(token)){
+            return "login";
+        }
+
+        String key = YSDRZPConstant.USER_LOGIN_TOKEN_INFO + mobilePhone;
+
+        String tokenValue = (String) redisUtil.get(key);
+        if (StrUtil.isBlank(tokenValue)){
+            // 未登录，或者登录已过期，重新登录
+            return "login";
+        }
+
+        if (StrUtil.isNotBlank(tokenValue)){
+            // 验证token
+            String userToken = (String) redisUtil.get(YSDRZPConstant.USER_LOGIN_TOKEN + tokenValue);
+            if (token.equals(userToken)){
+                return "login";
+            }
+        }
+
+        modelMap.put("powers", "");
+        return "index";
+    }
+
 }

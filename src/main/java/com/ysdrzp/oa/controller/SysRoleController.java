@@ -137,7 +137,7 @@ public class SysRoleController {
             modelMap.put("currentChecked", JSONUtil.toJsonStr(currentChecked.toArray()));
         }
 
-        return "/sys/role/role_edit";
+        return "application/sys/role/role_edit";
     }
 
     @PostMapping("editRoleResources")

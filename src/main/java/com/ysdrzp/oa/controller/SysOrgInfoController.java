@@ -58,7 +58,7 @@ public class SysOrgInfoController {
 
         modelMap.put("parentOrgName", parentOrgName);
         modelMap.put("orgDetail", orgTreeDTO);
-        return "/sys/org/org_detail";
+        return "application/sys/org/org_detail";
     }
 
     /**
@@ -92,7 +92,7 @@ public class SysOrgInfoController {
         SysOrgInfo sysOrgInfo = sysOrgInfoService.getOrgInfo(id);
         modelMap.put("fatherId", id);
         modelMap.put("fatherOrgName", sysOrgInfo.getOrgName());
-        return "/sys/org/org_add";
+        return "application/sys/org/org_add";
     }
 
     /**

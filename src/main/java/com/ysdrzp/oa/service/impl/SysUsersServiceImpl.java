@@ -2,9 +2,12 @@ package com.ysdrzp.oa.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ysdrzp.oa.common.RedisUtil;
 import com.ysdrzp.oa.common.YSDRZPResult;
 import com.ysdrzp.oa.constant.YSDRZPConstant;
 import com.ysdrzp.oa.dao.IBaseMapper;
@@ -26,6 +29,7 @@ import com.ysdrzp.oa.vo.UsersSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +50,9 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
 
     @Autowired
     private ISysUserRoleService sysUserRoleService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public IBaseMapper getMapper() {
@@ -70,7 +77,7 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
     @Override
     public YSDRZPResult addUser(UserAddVO userAddVO) {
 
-        SysUser sysUser = sysUserMapper.selectUserIsExist(userAddVO.getUserName(), userAddVO.getMobilePhone());
+        SysUser sysUser = sysUserMapper.selectUserIsExist(userAddVO.getMobilePhone());
         if (sysUser != null){
             return YSDRZPResult.error("用户已存在");
         }
@@ -79,7 +86,7 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
         sysUser.setMobilePhone(userAddVO.getMobilePhone());
         sysUser.setUserName(userAddVO.getUserName());
         sysUser.setMiscDesc(userAddVO.getMiscDesc());
-        sysUser.setPassword(MD5.create().digest(USER_INITIAL_PASSWORD).toString());
+        sysUser.setPassword(MD5.create().digestHex(USER_INITIAL_PASSWORD, Charset.forName("utf-8")));
         sysUser.setPwdValidDate(DateUtil.nextMonth());
         sysUser.setGender(userAddVO.getGender());
         sysUser.setOrgId(userAddVO.getOrgId());
@@ -149,7 +156,7 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
             return YSDRZPResult.ok("用户不存在");
         }
         if (sysUser != null){
-            sysUser.setPassword(MD5.create().digest(USER_INITIAL_PASSWORD).toString());
+            sysUser.setPassword(MD5.create().digestHex(USER_INITIAL_PASSWORD, Charset.forName("utf-8")));
             sysUser.setPwdValidDate(DateUtil.nextMonth());
             sysUser.setUpdateTime(DateUtil.date());
             sysUserMapper.updateByPrimaryKey(sysUser);
@@ -255,6 +262,36 @@ public class SysUsersServiceImpl extends BaseServiceImpl<SysUser> implements ISy
     public List<Long> getRoleIdsByUserId(Long userId) {
         List<Long> roleIds = sysUserMapper.getRoleIdsByUserId(userId);
         return roleIds;
+    }
+
+    @Override
+    public YSDRZPResult login(String mobilePhone, String password) {
+
+        SysUser sysUser = sysUserMapper.selectUserIsExist(mobilePhone);
+        if (sysUser == null){
+            return YSDRZPResult.error("用户不存在");
+        }
+
+        if (sysUser != null){
+            password = MD5.create().digestHex(password, Charset.forName("utf-8"));
+
+            if (! password.equals(sysUser.getPassword())){
+                return YSDRZPResult.error("用户名或密码错误");
+            }
+        }
+
+        String token = (String) redisUtil.get(YSDRZPConstant.USER_LOGIN_TOKEN_INFO + mobilePhone);
+        if (StrUtil.isNotBlank(token)) {
+            return YSDRZPResult.ok("登录成功", token);
+        }
+
+        if (StrUtil.isBlank(token)){
+            token = IdUtil.randomUUID();
+            redisUtil.set(YSDRZPConstant.USER_LOGIN_TOKEN_INFO + mobilePhone, token, 86400);
+            redisUtil.set(YSDRZPConstant.USER_LOGIN_TOKEN + token, mobilePhone, 86400);
+        }
+
+        return YSDRZPResult.ok("登录成功", token);
     }
 
 }

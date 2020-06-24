@@ -21,11 +21,10 @@ public interface SysUserMapper extends IBaseMapper<SysUser>{
 
     /**
      * 根据用户名称查询用户信息
-     * @param userName
      * @param mobilePhone
      * @return
      */
-    SysUser selectUserIsExist(@Param("userName") String userName, @Param("mobilePhone") String mobilePhone);
+    SysUser selectUserIsExist(@Param("mobilePhone") String mobilePhone);
 
     /**
      * 获取用户不同性别下的个数

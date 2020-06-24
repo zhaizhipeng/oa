@@ -68,7 +68,7 @@
     select
     <include refid="Base_Column_List" />
     from sys_user
-    where user_name = #{userName} and status = 1
+    where mobile_phone = #{mobilePhone} and status = 1
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

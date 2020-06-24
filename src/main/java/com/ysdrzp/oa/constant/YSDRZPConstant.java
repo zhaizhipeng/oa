@@ -20,4 +20,15 @@ public class YSDRZPConstant {
      */
     public static String RETURN_SUCCESS_MSG = "success";
 
+    /**
+     * 用户登录token标识
+     */
+    public static final String USER_LOGIN_TOKEN = "ysdrzp:";
+
+    /**
+     * 用户登录token信息
+     */
+    public static final String USER_LOGIN_TOKEN_INFO = "ysdrzp:user:";
+
+
 }

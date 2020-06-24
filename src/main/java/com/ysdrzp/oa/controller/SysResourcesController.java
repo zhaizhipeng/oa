@@ -58,7 +58,7 @@ public class SysResourcesController {
 
         modelMap.put("fatherResourcesName", fatherResourcesName);
         modelMap.put("menuDetail", menuTreeDTO);
-        return "/sys/menu/menu_detail";
+        return "application/sys/menu/menu_detail";
     }
 
     /**
@@ -96,7 +96,7 @@ public class SysResourcesController {
         SysResources sysResources = sysResourcesService.getResources(id);
         modelMap.put("fatherId", id);
         modelMap.put("fatherMenuName", sysResources.getResourcesName());
-        return "/sys/menu/menu_add";
+        return "application/sys/menu/menu_add";
     }
 
     /**

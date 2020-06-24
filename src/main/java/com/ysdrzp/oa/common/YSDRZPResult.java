@@ -43,6 +43,14 @@ public class YSDRZPResult implements Serializable {
 		return result;
 	}
 
+	public static YSDRZPResult ok(String msg, Object data){
+		YSDRZPResult result = new YSDRZPResult();
+		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);
+		result.setMsg(msg);
+		result.setData(data);
+		return result;
+	}
+
 	public static YSDRZPResult ok(Long count, Object list){
 		YSDRZPResult result = new YSDRZPResult();
 		result.setCode(YSDRZPConstant.RETURN_SUCCESS_CODE_INT);

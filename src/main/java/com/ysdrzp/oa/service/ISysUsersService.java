@@ -95,4 +95,12 @@ public interface ISysUsersService extends IBaseService<SysUser>{
      * @return
      */
     List<Long> getRoleIdsByUserId(Long userId);
+
+    /**
+     * 用户登录
+     * @param mobilePhone
+     * @param password
+     * @return
+     */
+    YSDRZPResult login(String mobilePhone, String password);
 }
